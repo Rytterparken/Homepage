@@ -6,7 +6,12 @@ body {
   padding-top: 70px;
   display: flex;
   flex-direction: column;
+  background-color: #fdfaf6;
+  background-image: url('images/patterns/polka-dots.svg');
+  background-repeat: repeat;
+  background-size: auto; /* eller fx 100px 100px for skaleret mønster */
 }
+
 
 main {
   flex: 1;
