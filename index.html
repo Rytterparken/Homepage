@@ -5,21 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grundejerforeningen Solvænget</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      padding-top: 70px;
-    }
-    .nav-link.active {
-      font-weight: bold;
-      text-decoration: underline;
-    }
-    .section {
-      display: none;
-    }
-    .section.active {
-      display: block;
-    }
-  </style>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- Navigation -->
@@ -46,7 +33,7 @@
       <div class="text-center my-5">
         <h1>Velkommen til Grundejerforeningen Solvænget</h1>
         <p class="lead">Her finder du information, vedtægter og dokumenter for foreningen.</p>
-        <img src="https://via.placeholder.com/800x300?text=Områdefoto" class="img-fluid rounded shadow" alt="Områdefoto">
+        <img src="images/overview.png" class="img-fluid rounded shadow" alt="Områdefoto">
       </div>
     </section>
 
@@ -66,37 +53,7 @@
       </ul>
     </section>
 
-    <!-- Dokumenter -->
-    <section id="dokumenter" class="section">
-      <h2>Dokumenter</h2>
-      <div class="row">
-        <div class="col-md-6">
-          <h4>Referater</h4>
-          <ul>
-            <li><a href="documents/generalforsamlinger/gf-referat-2025-ordinaer.pdf" download>Generalforsamling 2025</a></li>
-            <li><a href="documents/generalforsamlinger/gf-referat-2024-ordinaer.pdf" download>Generalforsamling 2024</a></li>
-            <li><a href="documents/generalforsamlinger/gf-referat-2023-ordinaer.pdf" download>Generalforsamling 2023</a></li>
-            <li><a href="documents/generalforsamlinger/gf-referat-2022-ordinaer.pdf" download>Generalforsamling 2022</a></li>
-            <li><a href="documents/generalforsamlinger/gf-referat-2021-ordinaer.pdf" download>Generalforsamling 2021</a></li>
-            <li><a href="documents/generalforsamlinger/gf-referat-2020-ordinaer.pdf" download>Generalforsamling 2020</a></li>
-            <li><a href="documents/generalforsamlinger/gf-referat-2019-ordinaer.pdf" download>Generalforsamling 2019</a></li>
-            <!-- osv. -->
-          </ul>
-        </div>
-        <div class="col-md-6">
-          <h4>Regnskaber</h4>
-          <ul>
-            <li><a href="documents/regnskaber/regnskab-2024.pdf" download>Regnskab 2024</a></li>
-            <li><a href="documents/regnskaber/regnskab-2023.pdf" download>Regnskab 2023</a></li>
-            <li><a href="documents/regnskaber/regnskab-2022.pdf" download>Regnskab 2022</a></li>
-            <li><a href="documents/regnskaber/regnskab-2021.pdf" download>Regnskab 2021</a></li>
-            <li><a href="documents/regnskaber/regnskab-2020.pdf" download>Regnskab 2020</a></li>
-            <li><a href="documents/regnskaber/regnskab-2019.pdf" download>Regnskab 2019</a></li>
-            <!-- osv. -->
-          </ul>
-        </div>
-      </div>
-    </section>
+    <div id="dokumenter-container"></div>
   </div>
 
   <footer class="bg-light text-center py-4 mt-5 border-top">
@@ -105,22 +62,8 @@
     </div>
   </footer>
 
-  <script>
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('active');
-      });
-      document.getElementById(id).classList.add('active');
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-      });
-      document.querySelectorAll('.nav-link').forEach(link => {
-        if (link.textContent.toLowerCase().includes(id)) {
-          link.classList.add('active');
-        }
-      });
-    }
-  </script>
+  <!-- External JavaScript files -->
+  <script src="scripts.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

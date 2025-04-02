@@ -1,0 +1,14 @@
+body {
+    padding-top: 70px;
+  }
+  .nav-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .section {
+    display: none;
+  }
+  .section.active {
+    display: block;
+  }
+  
