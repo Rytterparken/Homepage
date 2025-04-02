@@ -8,11 +8,11 @@ function loadSection(sectionId, url) {
       .catch(error => console.error(`Error loading ${sectionId}:`, error));
   }
   
-  // Load "vedtaegter.html" into the vedtaegter section
+  // Load "vedtaegter.html" osv.
   loadSection('vedtaegter', 'vedtaegter.html');
-  // Load "dokumenter.html" into the dokumenter section
   loadSection('dokumenter', 'dokumenter.html');
-  
+  loadSection('om-os', 'om-os.html');
+
   // Function to show sections and update navigation active state
   function showSection(id) {
     document.querySelectorAll('.section').forEach(section => {
