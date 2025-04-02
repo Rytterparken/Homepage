@@ -1,24 +1,117 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grundejerforeningen Solvænget</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      font-family: sans-serif;
-      text-align: center;
-      margin-top: 10%;
-      background-color: #f4f4f4;
+      padding-top: 70px;
     }
-    h1 {
-      font-size: 3em;
-      color: #333;
+    .nav-link.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
     }
   </style>
 </head>
 <body>
-  <h1>Hello World!</h1>
-  <p>Min første GitHub Pages-side ✨</p>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">Solvænget</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#" onclick="showSection('forside')">Hjem</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('vedtaegter')">Vedtægter</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('dokumenter')">Dokumenter</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="container">
+    <!-- Forside -->
+    <section id="forside" class="section active">
+      <div class="text-center my-5">
+        <h1>Velkommen til Grundejerforeningen Solvænget</h1>
+        <p class="lead">Her finder du information, vedtægter og dokumenter for foreningen.</p>
+        <img src="https://via.placeholder.com/800x300?text=Områdefoto" class="img-fluid rounded shadow" alt="Områdefoto">
+      </div>
+    </section>
+
+    <!-- Vedtægter -->
+    <section id="vedtaegter" class="section">
+      <h2>Vedtægter</h2>
+      <p>Her kan du læse og downloade foreningens vedtægter.</p>
+      <a href="files/vedtaegter-juridisk.pdf" class="btn btn-outline-primary mb-4" download>Download juridisk PDF</a>
+      <h4>Letlæst version</h4>
+      <ul>
+        <li><strong>§1:</strong> Foreningens navn er Grundejerforeningen Solvænget...</li>
+        <li><strong>§2:</strong> Medlemskab er obligatorisk for alle grundejere...</li>
+        <li><strong>§3:</strong> Generalforsamlingen afholdes hvert år i marts...</li>
+        <li><strong>§4:</strong> Kontingent fastsættes årligt af generalforsamlingen...</li>
+        <!-- Tilføj flere efter behov -->
+      </ul>
+    </section>
+
+    <!-- Dokumenter -->
+    <section id="dokumenter" class="section">
+      <h2>Dokumenter</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Referater</h4>
+          <ul>
+            <li><a href="files/referat-2025.pdf" download>Generalforsamling 2025</a></li>
+            <li><a href="files/referat-2024.pdf" download>Generalforsamling 2024</a></li>
+            <li><a href="files/referat-2023.pdf" download>Generalforsamling 2023</a></li>
+            <!-- osv. -->
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h4>Regnskaber</h4>
+          <ul>
+            <li><a href="files/regnskab-2024.pdf" download>Regnskab 2024</a></li>
+            <li><a href="files/regnskab-2023.pdf" download>Regnskab 2023</a></li>
+            <li><a href="files/regnskab-2022.pdf" download>Regnskab 2022</a></li>
+            <!-- osv. -->
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="bg-light text-center py-4 mt-5 border-top">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 Grundejerforeningen Solvænget | kontakt@solvaenget.dk</p>
+    </div>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.textContent.toLowerCase().includes(id)) {
+          link.classList.add('active');
+        }
+      });
+    }
+  </script>
 </body>
 </html>
