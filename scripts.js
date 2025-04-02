@@ -15,17 +15,21 @@ function loadSection(sectionId, url) {
 
   // Function to show sections and update navigation active state
   function showSection(id) {
+    // Skjul alle sektioner
     document.querySelectorAll('.section').forEach(section => {
       section.classList.remove('active');
     });
     document.getElementById(id).classList.add('active');
+  
+    // Fjern 'active' fra alle nav-links
     document.querySelectorAll('.nav-link').forEach(link => {
       link.classList.remove('active');
     });
-    document.querySelectorAll('.nav-link').forEach(link => {
-      if (link.textContent.toLowerCase().includes(id)) {
-        link.classList.add('active');
-      }
-    });
-  }
+  
+    // Tilføj 'active' til det rigtige link
+    const matchingLink = document.querySelector(`.nav-link[data-section="${id}"]`);
+    if (matchingLink) {
+      matchingLink.classList.add('active');
+    }
+  }  
   
