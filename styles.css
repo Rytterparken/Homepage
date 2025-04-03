@@ -12,7 +12,6 @@ body {
   background-size: auto; /* eller fx 100px 100px for skaleret mønster */
 }
 
-
 main {
   flex: 1;
 }
