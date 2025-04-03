@@ -16,28 +16,6 @@ main {
   flex: 1;
 }
 
-.pdf-viewer iframe {
-  width: 100%;
-  height: 600px;
-  border: none;
-}
-
-.mobile-pdf-fallback {
-  display: none;
-  text-align: center;
-  padding: 1rem;
-}
-
-@media (max-width: 768px) {
-  .pdf-viewer iframe {
-    display: none;
-  }
-
-  .mobile-pdf-fallback {
-    display: block;
-  }
-}
-
 .nav-link.active {
   font-weight: bold;
   text-decoration: underline;
