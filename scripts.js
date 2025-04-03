@@ -61,4 +61,15 @@ loadSection('vedtaegter', 'vedtaegter.html', function () {
 // Vis forside som udgangspunkt
 document.addEventListener("DOMContentLoaded", function () {
   showSection('forside');
+  const navbarCollapse = document.getElementById("navbarNav");
+  const navLinks = navbarCollapse.querySelectorAll(".nav-link");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth < 768) {
+        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+        if (bsCollapse) bsCollapse.hide();
+      }
+    });
+  });
 });
