@@ -16,6 +16,22 @@ main {
   flex: 1;
 }
 
+@media (max-width: 576px) {
+  .nav-tabs {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .nav-tabs .nav-item {
+    width: 100%;
+  }
+
+  .nav-tabs .nav-link {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .nav-link.active {
   font-weight: bold;
   text-decoration: underline;
