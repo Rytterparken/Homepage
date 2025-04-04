@@ -177,3 +177,7 @@ main {
 .toggle-arrow:not(.collapsed) .arrow {
   transform: rotate(90deg); /* Roter pilen fra ▶️ til 🔽 */
 }
+
+.transition-opacity {
+  transition: opacity 0.5s ease;
+}
