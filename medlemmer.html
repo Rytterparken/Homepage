@@ -1,15 +1,51 @@
 <div class="container text-center">
   <h2 class="mb-4">📋 Information til husstande</h2>
 
-  <!-- Kalendersektion -->
-  <div class="card text-start mt-5 mb-5">
-    <div class="card-header fs-5 fw-semibold">
-      📅 Kommende begivenheder
+  <!-- Grid med 2 kolonner -->
+  <div class="row justify-content-center mb-4">
+    <!-- Nyhedsbrev -->
+    <div class="col-lg-6 mb-4">
+      <div class="card text-start h-100">
+        <div class="card-header fs-5 fw-semibold">
+          ✉️ Tilmeld nyhedsmail
+        </div>
+        <div class="card-body">
+          <form action="https://XXXX.usXX.list-manage.com/subscribe/post?u=XXXXXXX&amp;id=YYYYYY"
+                method="post" target="_blank" novalidate>
+            <div class="row g-2 align-items-center mb-2">
+              <div class="col-12 col-sm-8">
+                <input type="email" name="EMAIL" class="form-control" placeholder="Din emailadresse" required>
+              </div>
+              <div class="col-12 col-sm-4">
+                <button type="submit" class="btn btn-success w-100">Tilmeld</button>
+              </div>
+            </div>
+        
+            <p class="text-muted small mb-0">
+              Du vil modtage besked om <strong>generalforsamlinger</strong>, <strong>fællesdage</strong> og anden vigtig information fra bestyrelsen. 
+              Vi sender kun mails, når der er noget relevant.
+            </p>
+            <p class="text-muted small fst-italic mt-2 mb-0">
+              Ved at tilmelde dig accepterer du, at vi må sende dig e-mails i henhold til gældende GDPR-regler.
+              Du kan til enhver tid afmelde dig igen via linket i bunden af vores mails.
+            </p>
+          </form>
+        </div>        
+      </div>
     </div>
-    <div class="card-body">
-      <ul id="calendar-list" class="list-unstyled mb-0">
-        <li class="text-muted">Indlæser kalender...</li>
-      </ul>
+
+    <!-- Kalender -->
+    <div class="col-lg-6 mb-4">
+      <div class="card text-start h-100">
+        <div class="card-header fs-5 fw-semibold">
+          📅 Kommende begivenheder
+        </div>
+        <div class="card-body">
+          <ul id="calendar-list" class="list-unstyled mb-0">
+            <li class="text-muted">Indlæser kalender...</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -19,6 +55,7 @@
     <span class="text-success">Grøn = medlem</span>, <span class="text-danger">rød = ikke-medlem</span>.
   </p>
 
+  <!-- Medlemsoversigt (kollapsbar) -->
   <div class="card mb-4">
     <div class="card-header p-0">
       <button class="btn w-100 text-start px-4 py-3 fs-5 fw-semibold collapsed toggle-arrow" type="button"
@@ -34,5 +71,3 @@
     </div>
   </div>
 </div>
-
-Siden er stadig under opbygning.
