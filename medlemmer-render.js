@@ -34,3 +34,20 @@ window.renderHouses = function () {
     });
   }
   
+  window.initMailchimpForm = function () {
+    const mcForm = document.getElementById('mc-form');
+    const mcMsg = document.getElementById('mc-message');
+    const iframe = document.querySelector('iframe[name="hidden_iframe"]');
+  
+    if (mcForm && mcMsg && iframe) {
+      iframe.addEventListener('load', () => {
+        const emailField = mcForm.querySelector('input[name="EMAIL"]');
+        if (emailField && emailField.value.trim() !== '') {
+          mcMsg.classList.remove('d-none');
+          mcForm.reset();
+          setTimeout(() => mcMsg.classList.add('d-none'), 5000);
+        }
+      });
+    }
+  };
+  

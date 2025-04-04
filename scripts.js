@@ -38,6 +38,7 @@ loadSection('om-os', 'om-os.html');
 loadSection('vores-arbejde', 'vores-arbejde.html');
 loadSection('medlemmer', 'medlemmer.html', function () {
   renderHouses();
+  initMailchimpForm();
   if (typeof renderCalendarFromXLSX === "function") {
     renderCalendarFromXLSX();
   }
