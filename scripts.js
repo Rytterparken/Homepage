@@ -36,7 +36,9 @@ function showSection(id) {
 loadSection('dokumenter', 'dokumenter.html');
 loadSection('om-os', 'om-os.html');
 loadSection('vores-arbejde', 'vores-arbejde.html');
-loadSection('medlemmer', 'medlemmer.html');
+loadSection('medlemmer', 'medlemmer.html', function () {
+  renderHouses();
+});
 loadSection('forslag', 'forslag.html', function () {
   initForslag();
 });
