@@ -35,6 +35,8 @@ function showSection(id) {
 // Load sektioner
 loadSection('dokumenter', 'dokumenter.html');
 loadSection('om-os', 'om-os.html');
+loadSection('vores-arbejde', 'vores-arbejde.html');
+loadSection('forslag', 'forslag.html');
 
 // Når vedtægter er loadet, så initialiser tabs korrekt
 loadSection('vedtaegter', 'vedtaegter.html', function () {
