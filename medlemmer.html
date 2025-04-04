@@ -1,6 +1,18 @@
 <div class="container text-center">
   <h2 class="mb-4">📋 Information til husstande</h2>
 
+  <!-- Kalendersektion -->
+  <div class="card text-start mt-5 mb-5">
+    <div class="card-header fs-5 fw-semibold">
+      📅 Kommende begivenheder
+    </div>
+    <div class="card-body">
+      <ul id="calendar-list" class="list-unstyled mb-0">
+        <li class="text-muted">Indlæser kalender...</li>
+      </ul>
+    </div>
+  </div>
+
   <p class="mb-4">
     I husoversigten herunder kan du se, hvilke husstande der er medlemmer i grundejerforeningen.<br>
     Der er i alt <strong>53 husstande</strong> der er en del af <strong>Rytterparken 1987</strong>.<br>
@@ -9,8 +21,10 @@
 
   <div class="card mb-4">
     <div class="card-header p-0">
-      <button class="btn w-100 text-start px-4 py-3 fs-5 fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#houseCollapse" aria-expanded="false" aria-controls="houseCollapse">
-        🏡 Medlemsoversigt
+      <button class="btn w-100 text-start px-4 py-3 fs-5 fw-semibold collapsed toggle-arrow" type="button"
+              data-bs-toggle="collapse" data-bs-target="#houseCollapse"
+              aria-expanded="false" aria-controls="houseCollapse">
+        <span class="me-2 arrow">▶️</span> Medlemsoversigt
       </button>
     </div>
     <div id="houseCollapse" class="collapse">

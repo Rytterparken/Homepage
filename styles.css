@@ -158,3 +158,22 @@ main {
   vertical-align: middle;
   margin: 4px;
 }
+
+.toggle-arrow {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.toggle-arrow:hover {
+  background-color: #f8f9fa;
+}
+
+.toggle-arrow .arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+/* Når knappen er åben (altså ikke collapsed) */
+.toggle-arrow:not(.collapsed) .arrow {
+  transform: rotate(90deg); /* Roter pilen fra ▶️ til 🔽 */
+}

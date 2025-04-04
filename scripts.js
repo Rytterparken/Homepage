@@ -38,6 +38,9 @@ loadSection('om-os', 'om-os.html');
 loadSection('vores-arbejde', 'vores-arbejde.html');
 loadSection('medlemmer', 'medlemmer.html', function () {
   renderHouses();
+  if (typeof renderCalendarFromXLSX === "function") {
+    renderCalendarFromXLSX();
+  }
 });
 loadSection('forslag', 'forslag.html', function () {
   initForslag();
