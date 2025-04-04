@@ -1,6 +1,23 @@
 <div class="container text-center">
   <h2 class="mb-4">🏡 Medlemsoversigt</h2>
-  <p class="text-muted mb-4">Herunder vises medlemmernes husnumre og status.</p>
 
-  <div id="house-container"></div>
+  <p class="mb-4">
+    I husoversigten herunder kan du se, hvilke husstande der er medlemmer i grundejerforeningen.<br>
+    <span class="text-success">Grøn = medlem</span>, <span class="text-danger">rød = ikke-medlem</span>.
+  </p>
+
+  <div class="card mb-4">
+    <div class="card-header p-0">
+      <button class="btn w-100 text-start px-4 py-3 fs-5 fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#houseCollapse" aria-expanded="false" aria-controls="houseCollapse">
+        📋 Husoversigt
+      </button>
+    </div>
+    <div id="houseCollapse" class="collapse">
+      <div class="card-body">
+        <div id="house-container" class="d-flex flex-wrap justify-content-center"></div>
+      </div>
+    </div>
+  </div>
 </div>
+
+Siden er stadig under opbygning.
