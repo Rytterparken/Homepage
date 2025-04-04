@@ -71,7 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   navLinks.forEach(link => {
     link.addEventListener("click", () => {
-      if (window.innerWidth < 768) {
+      // Luk kun hvis burger-menuen er synlig (uanset skærmbredde)
+      const toggler = document.querySelector('.navbar-toggler');
+      const isVisible = window.getComputedStyle(toggler).display !== "none";
+
+      if (isVisible) {
         const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
         if (bsCollapse) bsCollapse.hide();
       }
