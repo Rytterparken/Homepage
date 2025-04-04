@@ -2,7 +2,7 @@ window.renderHouses = function () {
     const totalHouses = 114;
   
     // Define members here:
-    const members = [1, 2, 4, 10, 13, 25, 36, 64, 100];
+    const members = [50, 70, 72, 74, 78, 82, 84, 86, 94, 100, 110];
   
     const container = document.getElementById("house-container");
     if (!container) return;
