@@ -39,6 +39,7 @@ main {
 
 .nav-link {
   color: #444;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -48,6 +49,7 @@ main {
 .navbar {
   padding-top: 1rem;
   padding-bottom: 1rem;
+  white-space: nowrap;
 }
 
 .navbar-brand {
