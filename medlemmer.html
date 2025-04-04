@@ -13,36 +13,40 @@
         <div class="card-body">
           <form action="https://github.us10.list-manage.com/subscribe/post?u=e6a58f6070966dbb0a1313fe7&amp;id=ec0f18ae14&amp;f_id=00e018e2f0"
                 method="post" id="mc-form" novalidate target="hidden_iframe">
-                  <div id="mc-wrapper">
-                    <div class="row g-2 align-items-center mb-2">
-                      <div class="col-12 col-sm-7">
-                        <input type="email" name="EMAIL" class="form-control" placeholder="Din email-adresse" required>
+                  <div id="mc-overlay-wrapper" class="position-relative">
+                    <div id="mc-wrapper">
+                      <!-- Formularen -->
+                      <div class="row g-2 align-items-center mb-2">
+                        <div class="col-12 col-sm-7">
+                          <input type="email" name="EMAIL" class="form-control" placeholder="Din email-adresse" required>
+                        </div>
+                        <div class="col-12 col-sm-5">
+                          <button type="submit" class="btn btn-outline-success w-100 shadow-sm py-2 fw-semibold">
+                            ✉️ Tilmeld mig
+                          </button>
+                        </div>
                       </div>
-                      <div class="col-12 col-sm-5">
-                        <button type="submit" class="btn btn-outline-success w-100 shadow-sm py-2 fw-semibold">
-                          ✉️ Tilmeld mig
-                        </button>
-                      </div>
+                
+                      <p class="text-muted small mb-4">
+                        Du vil modtage besked om <strong>generalforsamlinger</strong>, <strong>fællesdage</strong> og anden vigtig information fra bestyrelsen.
+                        Vi sender kun mails, når der er noget relevant.
+                      </p>
+                      <p class="text-muted small fst-italic mt-0 mb-3">
+                        Ved at tilmelde dig accepterer du, at vi må sende dig e-mails i henhold til gældende GDPR-regler.
+                        Du kan til enhver tid afmelde dig igen via linket i bunden af vores mails.
+                      </p>
                     </div>
                 
-                    <p class="text-muted small mb-4">
-                      Du vil modtage besked om <strong>generalforsamlinger</strong>, <strong>fællesdage</strong> og anden vigtig information fra bestyrelsen.
-                      Vi sender kun mails, når der er noget relevant.
-                    </p>
-                    <p class="text-muted small fst-italic mt-0 mb-3">
-                      Ved at tilmelde dig accepterer du, at vi må sende dig e-mails i henhold til gældende GDPR-regler.
-                      Du kan til enhver tid afmelde dig igen via linket i bunden af vores mails.
-                    </p>
-                  </div>
-                
-                  <!-- Takke-besked -->
-                  <div id="mc-thankyou" class="d-none text-center py-5">
-                    <div class="fs-1 text-success mb-2">✅</div>
-                    <p class="fs-5 fw-semibold text-success mb-0">Tak for din tilmelding!</p>
+                    <!-- Overlay takke-besked -->
+                    <div id="mc-thankyou" class="d-none position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center bg-white"
+                         style="z-index: 10;">
+                      <div class="fs-1 text-success mb-2">✅</div>
+                      <p class="fs-5 fw-semibold text-success mb-0">Tak for din tilmelding!</p>
+                    </div>
                   </div>
                 
                   <iframe name="hidden_iframe" style="display:none;"></iframe>
-                </form>      
+                </form>
         </div>
       </div>
     </div>

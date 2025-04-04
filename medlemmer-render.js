@@ -33,37 +33,34 @@ window.renderHouses = function () {
       el.innerHTML = svg;
     });
   }
-  
-  window.initMailchimpForm = function () {
-    const mcForm = document.getElementById('mc-form');
-    const mcMsg = document.getElementById('mc-thankyou');
-    const mcWrapper = document.getElementById('mc-wrapper');
-    const iframe = document.querySelector('iframe[name="hidden_iframe"]');
-  
-    if (mcForm && mcMsg && mcWrapper && iframe) {
-      iframe.addEventListener('load', () => {
-        const emailField = mcForm.querySelector('input[name="EMAIL"]');
-        if (emailField && emailField.value.trim() !== '') {
-          // Fade out formular
-          mcWrapper.classList.add('opacity-50');
-          mcWrapper.classList.add('transition-opacity');
-          mcWrapper.style.pointerEvents = 'none';
-  
-          // Vis takke-besked
-          mcMsg.classList.remove('d-none');
-  
-          // Reset input
-          mcForm.reset();
-  
-          // Efter 10 sekunder: nulstil
-          setTimeout(() => {
-            mcWrapper.classList.remove('opacity-50');
-            mcWrapper.style.pointerEvents = '';
-            mcMsg.classList.add('d-none');
-          }, 10000);
-        }
-      });
-    }
-  };
-  
+
+window.initMailchimpForm = function () {
+  const mcForm = document.getElementById('mc-form');
+  const mcMsg = document.getElementById('mc-thankyou');
+  const mcWrapper = document.getElementById('mc-wrapper');
+  const iframe = document.querySelector('iframe[name="hidden_iframe"]');
+
+  if (mcForm && mcMsg && mcWrapper && iframe) {
+    iframe.addEventListener('load', () => {
+      const emailField = mcForm.querySelector('input[name="EMAIL"]');
+      if (emailField && emailField.value.trim() !== '') {
+        // Fade formularen
+        mcWrapper.classList.add('transition-opacity');
+        mcWrapper.style.opacity = '0';
+
+        // Vis overlay
+        mcMsg.classList.remove('d-none');
+
+        // Nulstil input
+        mcForm.reset();
+
+        // Efter 10 sekunder, nulstil alt
+        setTimeout(() => {
+          mcWrapper.style.opacity = '1';
+          mcMsg.classList.add('d-none');
+        }, 10000);
+      }
+    });
+  }
+};
   
