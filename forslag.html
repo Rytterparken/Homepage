@@ -1,24 +1,66 @@
-<!-- AKTUELLE FORSLAG -->
-<section class="my-5">
-    <div class="container">
-      <h2 class="mb-4 text-center">💡 Forslag fra medlemmer</h2>
-      <p class="text-muted text-center mb-5">
-        Har du et forslag til bestyrelsen? Send det gerne til
-        <a href="mailto:rytterparken1987@gmail.com">rytterparken1987@gmail.com</a><br>
-        Forslag til generalforsamlingen <strong>skal være indsendt senest 1. marts 2026</strong>.<br>
-        Hvis de ikke er vist her, bliver de ikke drøftet i denne omgang.
-      </p>
-  
-      <div class="row row-cols-1 row-cols-md-2 g-4" id="forslagsAccordionGrid">
-        <forslag title="Langtidsbudget for vedligeholdelse">
-          Forslag om at der udarbejdes et rullende 5-årsbudget for både veje og SF-stier.
-        </forslag>
-  
-        <forslag title="Dokumentation af grøn vedligeholdelse">
-          Ønske om at gøre det tydeligt, hvad der er med i den grønne vedligeholdelse.
-        </forslag>
-      </div>
-    </div>
-  </section>
+<!-- forslag.html -->
 
-  Siden er stadig under opbygning.
+<section class="my-5">
+  <div class="container">
+    <!-- Intro og skabelon -->
+    <h2 class="mb-4 text-center">✍️ Stil et forslag</h2>
+    <p class="text-muted text-center mb-4">
+      Har du en idé eller et ønske til foreningen? Så er du velkommen til at sende et forslag til bestyrelsen.<br>
+      Du kan bruge vores skabelon til at sikre, at alle nødvendige oplysninger er med:
+    </p>
+    <div class="text-center mb-5">
+      <a class="btn btn-outline-primary" href="documents/forslag/Forslagsskabelon_Rytterparken1987.pdf" target="_blank">
+        📄 Download forslagsskabelon (PDF)
+      </a>
+    </div>
+
+    <!-- Forslag til næste generalforsamling -->
+    <h2 class="mb-4 text-center">🗳️ Forslag til næste generalforsamling (2026)</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4 mb-5" id="forslagsAccordionGrid">
+      <forslag title="Langtidsbudget for vedligeholdelse">
+        Forslag om at der udarbejdes et rullende 5-årsbudget for både veje og SF-stier.
+      </forslag>
+      <forslag title="Dokumentation af grøn vedligeholdelse">
+        Ønske om at gøre det tydeligt, hvad der er med i den grønne vedligeholdelse.
+      </forslag>
+    </div>
+
+    <!-- Tidligere forslag og status -->
+    <h2 class="mb-4 text-center">📜 Tidligere forslag og resultater</h2>
+    <div class="accordion" id="oldProposals">
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading1">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+            📅 2025 – Fælles redskabsskur
+          </button>
+        </h2>
+        <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#oldProposals">
+          <div class="accordion-body">
+            <p><strong>Forslag:</strong> At opføre et fælles redskabsskur til haveredskaber.</p>
+            <p><strong>Status:</strong> Ikke vedtaget</p>
+            <p><strong>Begrundelse:</strong> Der var bekymringer om vedligehold og placering. Forslaget blev ikke vedtaget med flertal.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+            📅 2024 – Cykelstativer ved fællesarealet
+          </button>
+        </h2>
+        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#oldProposals">
+          <div class="accordion-body">
+            <p><strong>Forslag:</strong> Opsætning af nye cykelstativer til beboere og gæster.</p>
+            <p><strong>Status:</strong> Vedtaget</p>
+            <p><strong>Begrundelse:</strong> Flertal stemte for, og projektet er sat i gang i samarbejde med leverandør.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
