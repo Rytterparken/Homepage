@@ -71,106 +71,68 @@ window.enableZoomPanOnMap = function () {
   if (!img || !container) return;
 
   let scale = 1;
-  let translateX = 0;
   let translateY = 0;
+  let minScale = 1;
   let isDragging = false;
-  let startX, startY;
-
-  const isLargeScreen = () => window.innerWidth > 768;
+  let startY;
 
   function updateTransform() {
-    img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  }
-
-  function limitPan() {
     const rect = container.getBoundingClientRect();
-    const imgWidth = img.naturalWidth * scale;
-    const imgHeight = img.naturalHeight * scale;
+    const offsetX = (rect.width - img.naturalWidth * scale) / 2;
 
-    const containerWidth = rect.width;
-    const containerHeight = rect.height;
-
-    // Begræns X
-    const maxTranslateX = 0;
-    const minTranslateX = containerWidth - imgWidth;
-    if (imgWidth > containerWidth) {
-      translateX = Math.max(minTranslateX, Math.min(maxTranslateX, translateX));
-    } else {
-      translateX = (containerWidth - imgWidth) / 2;
-    }
-
-    // Begræns Y
-    const maxTranslateY = 0;
-    const minTranslateY = containerHeight - imgHeight;
-    if (imgHeight > containerHeight) {
-      translateY = Math.max(minTranslateY, Math.min(maxTranslateY, translateY));
-    } else {
-      translateY = (containerHeight - imgHeight) / 2;
-    }
+    img.style.transform = `translate(${offsetX}px, ${translateY}px) scale(${scale})`;
   }
 
   function resetZoom() {
-    scale = 1;
-    translateX = 0;
-    translateY = 0;
-    limitPan();
+    const rect = container.getBoundingClientRect();
+    scale = rect.width / img.naturalWidth;
+    minScale = scale;
+
+    const scaledHeight = img.naturalHeight * scale;
+    translateY = (rect.height - scaledHeight) / 2;
+
     updateTransform();
   }
 
-  if (isLargeScreen()) {
-    container.addEventListener('wheel', (e) => {
-      e.preventDefault();
+  container.addEventListener('wheel', (e) => {
+    e.preventDefault();
 
-      const delta = -e.deltaY * 0.001;
-      const newScale = Math.min(Math.max(1, scale + delta), 3);
-      const scaleChange = newScale / scale;
-      scale = newScale;
+    const delta = -e.deltaY * 0.001;
+    const newScale = Math.min(Math.max(minScale, scale + delta), 3);
+    const scaleChange = newScale / scale;
+    scale = newScale;
 
-      const rect = container.getBoundingClientRect();
-      const offsetX = e.clientX - rect.left;
-      const offsetY = e.clientY - rect.top;
+    const rect = container.getBoundingClientRect();
+    const offsetY = e.clientY - rect.top;
 
-      translateX -= (offsetX - translateX) * (scaleChange - 1);
-      translateY -= (offsetY - translateY) * (scaleChange - 1);
+    translateY -= (offsetY - translateY) * (scaleChange - 1);
 
-      limitPan();
-      updateTransform();
-    });
+    updateTransform();
+  });
 
-    container.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      isDragging = true;
-      startX = e.clientX - translateX;
-      startY = e.clientY - translateY;
-      img.style.cursor = 'grabbing';
-    });
+  container.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    isDragging = true;
+    startY = e.clientY - translateY;
+    img.style.cursor = 'grabbing';
+  });
 
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-      img.style.cursor = 'grab';
-    });
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    img.style.cursor = 'grab';
+  });
 
-    container.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      translateX = e.clientX - startX;
-      translateY = e.clientY - startY;
-      limitPan();
-      updateTransform();
-    });
-  }
+  container.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    translateY = e.clientY - startY;
+    updateTransform();
+  });
 
-  // Klik på "Nulstil"-knap
   if (resetBtn) {
     resetBtn.addEventListener('click', resetZoom);
   }
 
-  img.onload = () => {
-    limitPan();
-    updateTransform();
-  };
-
-  if (img.complete) {
-    limitPan();
-    updateTransform();
-  }
+  img.onload = resetZoom;
+  if (img.complete) resetZoom();
 };
+
