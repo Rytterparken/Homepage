@@ -197,5 +197,15 @@ main {
   will-change: transform;
 }
 
+#zoom-in-btn,
+#zoom-out-btn {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+#zoom-in-btn:hover,
+#zoom-out-btn:hover {
+  opacity: 1;
+}
 
 
