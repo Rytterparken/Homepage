@@ -36,7 +36,7 @@ function showSection(id) {
 loadSection('dokumenter', 'dokumenter.html');
 loadSection('hvem-er-vi', 'hvem-er-vi.html');
 loadSection('vores-arbejde', 'vores-arbejde.html');
-loadSection('medlemmer', 'medlemmer.html', function () {
+loadSection('for-beboere', 'for-beboere.html', function () {
   renderHouses();
   initMailchimpForm();
   if (typeof renderCalendarFromXLSX === "function") {
