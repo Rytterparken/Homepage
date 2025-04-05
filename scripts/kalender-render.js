@@ -1,5 +1,5 @@
 window.renderCalendarFromXLSX = function () {
-  fetch("kalender.xlsx")
+  fetch("data/kalender.xlsx")
     .then(res => res.arrayBuffer())
     .then(data => {
       const workbook = XLSX.read(data, { type: "array" });
