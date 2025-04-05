@@ -44,9 +44,7 @@ loadSection('for-beboere', 'for-beboere.html', function () {
   }
   enableZoomPanOnMap();
 });
-loadSection('forslag', 'forslag.html', function () {
-  initForslag();
-});
+loadSection('forslag', 'forslag.html');
 
 // Når vedtægter er loadet, så initialiser tabs korrekt
 loadSection('vedtaegter', 'vedtaegter.html', function () {
