@@ -40,20 +40,26 @@ fetch("data/forslag.json")
       item.className = "accordion-item";
 
       item.innerHTML = `
-        <h2 class="accordion-header" id="heading-${årstal}-${i}">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapse-${årstal}-${i}" aria-expanded="false" aria-controls="collapse-${årstal}-${i}">
-            📝 ${f.titel}
-          </button>
-        </h2>
-        <div id="collapse-${årstal}-${i}" class="accordion-collapse collapse"
-             aria-labelledby="heading-${årstal}-${i}" data-bs-parent="#${accordionId}">
-          <div class="accordion-body">
-            <p><strong>Forslag:</strong> ${f.beskrivelse}</p>
-            <p><strong>Status:</strong> ${f.status}</p>
-          </div>
+      <h2 class="accordion-header" id="heading-${årstal}-${i}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse-${årstal}-${i}" aria-expanded="false" aria-controls="collapse-${årstal}-${i}">
+          📝 ${f.titel}
+        </button>
+      </h2>
+      <div id="collapse-${årstal}-${i}" class="accordion-collapse collapse"
+           aria-labelledby="heading-${årstal}-${i}" data-bs-parent="#${accordionId}">
+        <div class="accordion-body">
+          <p><strong>Forslag:</strong> ${f.beskrivelse}</p>
+          <p><strong>Status:</strong> ${f.status}</p>
+          ${f.bilag ? `
+            <p><strong>Bilag:</strong> 
+              <a href="${f.bilag.link}" target="_blank">${f.bilag.filnavn}</a>
+              ${f.bilag.type === "pdf" ? `<br><embed src="${f.bilag.link}" type="application/pdf" width="100%" height="400px" class="mt-2 rounded shadow-sm" />` : ""}
+            </p>
+          ` : ""}
         </div>
-      `;
+      </div>
+    `;    
       wrapper.appendChild(item);
     });
   });
