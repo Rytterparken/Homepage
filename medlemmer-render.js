@@ -64,3 +64,105 @@ window.initMailchimpForm = function () {
   }
 };
   
+
+window.enableZoomPanOnMap = function () {
+  const img = document.getElementById('zoom-image');
+  const container = document.getElementById('zoom-container');
+  if (!img || !container) return;
+
+  let scale = 1;
+  let translateX = 0;
+  let translateY = 0;
+  let isDragging = false;
+  let startX, startY;
+
+  // Zoom handling
+  container.addEventListener('wheel', (e) => {
+    e.preventDefault();
+
+    const delta = -e.deltaY * 0.001;
+    const newScale = Math.min(Math.max(1, scale + delta), 3);
+    const scaleChange = newScale / scale;
+    scale = newScale;
+
+    const rect = container.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const offsetY = e.clientY - rect.top;
+
+    // Juster translate for at zoome mod cursor
+    translateX -= (offsetX - translateX) * (scaleChange - 1);
+    translateY -= (offsetY - translateY) * (scaleChange - 1);
+
+    updateTransform();
+  });
+
+  // Drag handling
+  container.addEventListener('mousedown', (e) => {
+    e.preventDefault(); // Stop browser fra at "gribe" billedet
+    isDragging = true;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
+    img.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    img.style.cursor = 'grab';
+
+    img.onload = () => {
+      limitPan();
+      updateTransform();
+    };
+
+    if (img.complete) {
+      limitPan();
+      updateTransform();
+    }    
+  });
+
+  container.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+
+    limitPan(); // Begræns så billedet ikke går ud over kanten
+    updateTransform();
+  });
+
+  function limitPan() {
+    const rect = container.getBoundingClientRect();
+    const imgWidth = img.naturalWidth * scale;
+    const imgHeight = img.naturalHeight * scale;
+  
+    const containerWidth = rect.width;
+    const containerHeight = rect.height;
+  
+    // Begræns X
+    const maxTranslateX = 0;
+    const minTranslateX = containerWidth - imgWidth;
+    if (imgWidth > containerWidth) {
+      translateX = Math.max(minTranslateX, Math.min(maxTranslateX, translateX));
+    } else {
+      // centrer hvis for lille
+      translateX = (containerWidth - imgWidth) / 2;
+    }
+  
+    // Begræns Y
+    const maxTranslateY = 0;
+    const minTranslateY = containerHeight - imgHeight;
+    if (imgHeight > containerHeight) {
+      translateY = Math.max(minTranslateY, Math.min(maxTranslateY, translateY));
+    } else {
+      translateY = (containerHeight - imgHeight) / 2;
+    }
+  }
+
+  function updateTransform() {
+    img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
+
+  // Init
+  img.style.cursor = 'grab';
+  updateTransform();
+};

@@ -42,6 +42,7 @@ loadSection('medlemmer', 'medlemmer.html', function () {
   if (typeof renderCalendarFromXLSX === "function") {
     renderCalendarFromXLSX();
   }
+  enableZoomPanOnMap();
 });
 loadSection('forslag', 'forslag.html', function () {
   initForslag();
