@@ -63,11 +63,11 @@ window.initMailchimpForm = function () {
     });
   }
 };
-  
 
 window.enableZoomPanOnMap = function () {
   const img = document.getElementById('zoom-image');
   const container = document.getElementById('zoom-container');
+  const resetBtn = document.getElementById('reset-map-btn');
   if (!img || !container) return;
 
   let scale = 1;
@@ -76,78 +76,29 @@ window.enableZoomPanOnMap = function () {
   let isDragging = false;
   let startX, startY;
 
-  // Zoom handling
-  container.addEventListener('wheel', (e) => {
-    e.preventDefault();
+  const isLargeScreen = () => window.innerWidth > 768;
 
-    const delta = -e.deltaY * 0.001;
-    const newScale = Math.min(Math.max(1, scale + delta), 3);
-    const scaleChange = newScale / scale;
-    scale = newScale;
-
-    const rect = container.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const offsetY = e.clientY - rect.top;
-
-    // Juster translate for at zoome mod cursor
-    translateX -= (offsetX - translateX) * (scaleChange - 1);
-    translateY -= (offsetY - translateY) * (scaleChange - 1);
-
-    updateTransform();
-  });
-
-  // Drag handling
-  container.addEventListener('mousedown', (e) => {
-    e.preventDefault(); // Stop browser fra at "gribe" billedet
-    isDragging = true;
-    startX = e.clientX - translateX;
-    startY = e.clientY - translateY;
-    img.style.cursor = 'grabbing';
-  });
-
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-    img.style.cursor = 'grab';
-
-    img.onload = () => {
-      limitPan();
-      updateTransform();
-    };
-
-    if (img.complete) {
-      limitPan();
-      updateTransform();
-    }    
-  });
-
-  container.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-
-    translateX = e.clientX - startX;
-    translateY = e.clientY - startY;
-
-    limitPan(); // Begræns så billedet ikke går ud over kanten
-    updateTransform();
-  });
+  function updateTransform() {
+    img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
 
   function limitPan() {
     const rect = container.getBoundingClientRect();
     const imgWidth = img.naturalWidth * scale;
     const imgHeight = img.naturalHeight * scale;
-  
+
     const containerWidth = rect.width;
     const containerHeight = rect.height;
-  
+
     // Begræns X
     const maxTranslateX = 0;
     const minTranslateX = containerWidth - imgWidth;
     if (imgWidth > containerWidth) {
       translateX = Math.max(minTranslateX, Math.min(maxTranslateX, translateX));
     } else {
-      // centrer hvis for lille
       translateX = (containerWidth - imgWidth) / 2;
     }
-  
+
     // Begræns Y
     const maxTranslateY = 0;
     const minTranslateY = containerHeight - imgHeight;
@@ -158,11 +109,68 @@ window.enableZoomPanOnMap = function () {
     }
   }
 
-  function updateTransform() {
-    img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  function resetZoom() {
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
+    limitPan();
+    updateTransform();
   }
 
-  // Init
-  img.style.cursor = 'grab';
-  updateTransform();
+  if (isLargeScreen()) {
+    container.addEventListener('wheel', (e) => {
+      e.preventDefault();
+
+      const delta = -e.deltaY * 0.001;
+      const newScale = Math.min(Math.max(1, scale + delta), 3);
+      const scaleChange = newScale / scale;
+      scale = newScale;
+
+      const rect = container.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const offsetY = e.clientY - rect.top;
+
+      translateX -= (offsetX - translateX) * (scaleChange - 1);
+      translateY -= (offsetY - translateY) * (scaleChange - 1);
+
+      limitPan();
+      updateTransform();
+    });
+
+    container.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      isDragging = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+      img.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      img.style.cursor = 'grab';
+    });
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      limitPan();
+      updateTransform();
+    });
+  }
+
+  // Klik på "Nulstil"-knap
+  if (resetBtn) {
+    resetBtn.addEventListener('click', resetZoom);
+  }
+
+  img.onload = () => {
+    limitPan();
+    updateTransform();
+  };
+
+  if (img.complete) {
+    limitPan();
+    updateTransform();
+  }
 };

@@ -71,13 +71,14 @@
     <!-- Kort-boksen -->
     <div class="col-lg-5 mb-4">
       <div class="card h-100">
-        <div class="card-header fs-5 fw-semibold">
-          🗺️ Oversigtskort
+        <div class="card-header fs-5 fw-semibold d-flex justify-content-between align-items-center">
+          <span>🗺️ Oversigtskort</span>
+          <button id="reset-map-btn" class="btn btn-sm btn-outline-secondary">🔄 Nulstil</button>
         </div>
         <div class="card-body p-0">
-          <div id="zoom-container" class="overflow-hidden position-relative" style="height: 400px; touch-action: none;">
-            <img src="images/kort.png" alt="Kort over området" id="zoom-image"
-                 style="width: 100%; height: auto; transform-origin: top left; cursor: grab;">
+          <div id="zoom-container" class="zoom-container">
+            <div class="zoom-hint">🔍 Træk og zoom kortet</div>
+            <img src="images/kort.png" alt="Kort over området" id="zoom-image">
           </div>
         </div>
       </div>
@@ -100,8 +101,6 @@
       </div>
     </div>
   </div>
-  
-  <hr class="my-5">
 
   <h2 class="mb-4">🤝 Hvem er medlem? </h2>
   <p class="mb-4">
