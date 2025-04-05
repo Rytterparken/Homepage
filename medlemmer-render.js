@@ -105,36 +105,41 @@ window.enableZoomPanOnMap = function () {
 
   function resetZoom() {
     const rect = container.getBoundingClientRect();
+  
+    // Fit image width to container width
     scale = rect.width / img.naturalWidth;
     minScale = scale;
-
+  
+    // Start from top-left, but center horizontally
     const scaledWidth = img.naturalWidth * scale;
-    const scaledHeight = img.naturalHeight * scale;
-
     translateX = (rect.width - scaledWidth) / 2;
-    translateY = (rect.height - scaledHeight) / 2;
-
+    translateY = 0;
+  
     updateTransform();
   }
+  
+  function updateTransform() {
+    img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
+  
 
   container.addEventListener('wheel', (e) => {
     e.preventDefault();
-
+  
     const delta = -e.deltaY * 0.001;
     const newScale = Math.min(Math.max(minScale, scale + delta), 3);
     const scaleChange = newScale / scale;
     scale = newScale;
-
+  
     const rect = container.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
-
+  
     translateX -= (offsetX - translateX) * (scaleChange - 1);
     translateY -= (offsetY - translateY) * (scaleChange - 1);
-
-    limitPan();
+  
     updateTransform();
-  });
+  });  
 
   container.addEventListener('mousedown', (e) => {
     e.preventDefault();
@@ -163,13 +168,18 @@ window.enableZoomPanOnMap = function () {
     resetBtn.addEventListener('click', resetZoom);
   }
 
-  img.onload = () => {
-    resetZoom();
-    updateTransform();
-  };
-
-  if (img.complete) {
-    resetZoom();
-    updateTransform();
+  function waitForVisibilityAndInit() {
+    const rect = container.getBoundingClientRect();
+    const isVisible = rect.width > 0 && rect.height > 0 && img.complete;
+  
+    if (isVisible) {
+      resetZoom();
+      updateTransform();
+    } else {
+      setTimeout(waitForVisibilityAndInit, 50);
+    }
   }
+  
+  // Kør når DOM og billede er klar
+  waitForVisibilityAndInit();  
 };
