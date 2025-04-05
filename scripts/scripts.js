@@ -39,7 +39,7 @@ loadSection('dokumenter', 'dokumenter.html', function () {
     renderDokumenter();
   }
 });
-loadSection('hvem-er-vi', 'hvem-er-vi.html');
+loadSection('hvem-er-vi', 'hvem-er-vi.html', renderBestyrelse);
 loadSection('vores-arbejde', 'vores-arbejde.html');
 loadSection('for-beboere', 'for-beboere.html', function () {
   renderHouses();

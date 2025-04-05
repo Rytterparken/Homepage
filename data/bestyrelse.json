@@ -1,0 +1,37 @@
+[
+    {
+      "navn": "Ulla Kielland-Brandt",
+      "rolle": "Formand",
+      "adresse": "Rytterparken 72",
+      "email": "theullzlife@gmail.com",
+      "telefon": "26 37 70 81"
+    },
+    {
+      "navn": "Helle Olsen",
+      "rolle": "Kasserer",
+      "adresse": "Rytterparken 84",
+      "email": "brianolsen@profibermail.dk",
+      "telefon": "20 74 99 52"
+    },
+    {
+      "navn": "Astrid Sørensen",
+      "rolle": "Menigt medlem (Webansvarlig)",
+      "adresse": "Rytterparken 74",
+      "email": "astridavalin@gmail.com",
+      "telefon": "26 70 21 79"
+    },
+    {
+      "navn": "Helle Ommestrup",
+      "rolle": "Menigt medlem",
+      "adresse": "Rytterparken 82",
+      "email": "helleommestrup@hotmail.com"
+    },
+    {
+      "navn": "Susanne Haagensen",
+      "rolle": "Menigt medlem",
+      "adresse": "Rytterparken 78",
+      "email": "knas@privatsport.dk",
+      "telefon": "60 95 33 31"
+    }
+  ]
+  
