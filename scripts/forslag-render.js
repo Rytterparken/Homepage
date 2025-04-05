@@ -14,6 +14,11 @@ fetch("data/forslag.json")
       const nyesteÅr = [...new Set(aktuelle.map(f => f.år))].sort((a, b) => b - a);
       const senesteÅr = nyesteÅr[0]; // Det nyeste årstal
 
+      // Tilføj skillelinje før første accordion
+      const hrStart = document.createElement("hr");
+      hrStart.className = "my-5";
+      container.appendChild(hrStart);
+
       nyesteÅr.forEach(årstal => {
         const forslag = aktuelle.filter(f => f.år === årstal);
         const accordionId = `yearAccordion${årstal}`;
@@ -66,6 +71,11 @@ fetch("data/forslag.json")
 
     // --- Info-boks før gamle forslag ---
     if (tidligere.length > 0) {
+      // Skillelinje før tidligere forslag
+      const hrOld = document.createElement("hr");
+      hrOld.className = "my-5";
+      container.appendChild(hrOld);
+
       const infobox = document.createElement("div");
       infobox.className = "alert alert-info text-center";
       infobox.innerHTML = `
