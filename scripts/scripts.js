@@ -34,7 +34,7 @@ function showSection(id) {
 
 // Load sektioner
 loadSection('dokumenter', 'dokumenter.html');
-loadSection('om-os', 'om-os.html');
+loadSection('hvem-er-vi', 'hvem-er-vi.html');
 loadSection('vores-arbejde', 'vores-arbejde.html');
 loadSection('medlemmer', 'medlemmer.html', function () {
   renderHouses();
