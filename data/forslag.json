@@ -1,12 +1,12 @@
 [
     {
-      "år": 2025,
+      "år": 2026,
       "titel": "Langtidsbudget for vedligeholdelse",
       "beskrivelse": "Forslag om at der udarbejdes et rullende 5-årsbudget for både veje og SF-stier.",
       "status": "Afventer behandling"
     },
     {
-      "år": 2025,
+      "år": 2026,
       "titel": "Dokumentation af grøn vedligeholdelse",
       "beskrivelse": "Ønske om at gøre det tydeligt, hvad der er med i den grønne vedligeholdelse.",
       "status": "Afventer behandling"
@@ -15,7 +15,7 @@
       "år": 2023,
       "titel": "Indretning af nye parkeringspladser ved Rytterparken 28-72",
       "beskrivelse": "Forslag om etablering af op til 32 parkeringspladser, herunder ændringer i belægning, grøn beplantning og adgangsforhold. Forslaget ledsages af bilag og plantegning.",
-      "status": "Behandlet – status ukendt",
+      "status": "Status ukendt",
       "bilag": {
         "filnavn": "Bilag: Parkeringspladser 2023",
         "link": "documents/forslag/forslag-til-parkering.pdf",

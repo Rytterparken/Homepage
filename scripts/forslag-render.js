@@ -31,7 +31,7 @@ fetch("data/forslag.json")
 
     const heading = document.createElement("h3");
     heading.className = "mb-3 mt-4";
-    heading.textContent = `📋 Forslag fra ${årstal}`;
+    heading.textContent = `📋 Forslag til ${årstal}`;
     container.appendChild(heading);
     container.appendChild(wrapper);
 
