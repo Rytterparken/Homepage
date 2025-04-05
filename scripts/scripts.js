@@ -33,7 +33,11 @@ function showSection(id) {
 }
 
 // Load sektioner
-loadSection('dokumenter', 'dokumenter.html');
+loadSection('dokumenter', 'dokumenter.html', function () {
+  if (typeof renderDokumenter === "function") {
+    renderDokumenter();
+  }
+});
 loadSection('hvem-er-vi', 'hvem-er-vi.html');
 loadSection('vores-arbejde', 'vores-arbejde.html');
 loadSection('for-beboere', 'for-beboere.html', function () {
