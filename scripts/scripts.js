@@ -33,7 +33,7 @@ function showSection(id) {
 }
 
 // Load sektioner
-loadSection('faq', 'faq.html');
+loadSection('faq', 'faq.html', renderFAQ);
 loadSection('dokumenter', 'dokumenter.html', function () {
   if (typeof renderDokumenter === "function") {
     renderDokumenter();
