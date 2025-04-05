@@ -208,4 +208,8 @@ main {
   opacity: 1;
 }
 
-
+@media (min-width: 992px) {
+  .navbar-nav {
+    margin-left: 2rem; /* Eller 1.5rem hvis du vil have mere luft */
+  }
+}
