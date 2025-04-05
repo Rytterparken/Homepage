@@ -71,16 +71,36 @@ window.enableZoomPanOnMap = function () {
   if (!img || !container) return;
 
   let scale = 1;
-  let translateY = 0;
   let minScale = 1;
+  let translateX = 0;
+  let translateY = 0;
   let isDragging = false;
-  let startY;
+  let startX, startY;
 
   function updateTransform() {
-    const rect = container.getBoundingClientRect();
-    const offsetX = (rect.width - img.naturalWidth * scale) / 2;
+    img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
 
-    img.style.transform = `translate(${offsetX}px, ${translateY}px) scale(${scale})`;
+  function limitPan() {
+    const rect = container.getBoundingClientRect();
+    const imgWidth = img.naturalWidth * scale;
+    const imgHeight = img.naturalHeight * scale;
+
+    const maxX = 0;
+    const minX = rect.width - imgWidth;
+    if (imgWidth > rect.width) {
+      translateX = Math.max(minX, Math.min(maxX, translateX));
+    } else {
+      translateX = (rect.width - imgWidth) / 2;
+    }
+
+    const maxY = 0;
+    const minY = rect.height - imgHeight;
+    if (imgHeight > rect.height) {
+      translateY = Math.max(minY, Math.min(maxY, translateY));
+    } else {
+      translateY = (rect.height - imgHeight) / 2;
+    }
   }
 
   function resetZoom() {
@@ -88,7 +108,10 @@ window.enableZoomPanOnMap = function () {
     scale = rect.width / img.naturalWidth;
     minScale = scale;
 
+    const scaledWidth = img.naturalWidth * scale;
     const scaledHeight = img.naturalHeight * scale;
+
+    translateX = (rect.width - scaledWidth) / 2;
     translateY = (rect.height - scaledHeight) / 2;
 
     updateTransform();
@@ -103,16 +126,20 @@ window.enableZoomPanOnMap = function () {
     scale = newScale;
 
     const rect = container.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
 
+    translateX -= (offsetX - translateX) * (scaleChange - 1);
     translateY -= (offsetY - translateY) * (scaleChange - 1);
 
+    limitPan();
     updateTransform();
   });
 
   container.addEventListener('mousedown', (e) => {
     e.preventDefault();
     isDragging = true;
+    startX = e.clientX - translateX;
     startY = e.clientY - translateY;
     img.style.cursor = 'grabbing';
   });
@@ -124,7 +151,11 @@ window.enableZoomPanOnMap = function () {
 
   container.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
+
+    translateX = e.clientX - startX;
     translateY = e.clientY - startY;
+
+    limitPan();
     updateTransform();
   });
 
@@ -132,7 +163,13 @@ window.enableZoomPanOnMap = function () {
     resetBtn.addEventListener('click', resetZoom);
   }
 
-  img.onload = resetZoom;
-  if (img.complete) resetZoom();
-};
+  img.onload = () => {
+    resetZoom();
+    updateTransform();
+  };
 
+  if (img.complete) {
+    resetZoom();
+    updateTransform();
+  }
+};
