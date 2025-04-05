@@ -21,7 +21,7 @@ window.renderCalendarFromXLSX = function () {
         let badgeHTML = "";
         if (event.Type?.toLowerCase() === "intern") {
           badgeHTML = `<span class="badge bg-secondary ms-1">Kun bestyrelsen</span>`;
-        } else if (event.Type?.toLowerCase() === "offentlig") {
+        } else if (event.Type?.toLowerCase() === "alle") {
           badgeHTML = `<span class="badge bg-success ms-1">For medlemmer</span>`;
         }
 
