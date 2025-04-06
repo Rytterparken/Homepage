@@ -1,6 +1,13 @@
 [
   {
     "dato-fremsat": "2025-02-15",
+    "titel": "Forslag om bålplads ved bord-og-bænke pladsen",
+    "beskrivelse": "Der foreslåes at der kunne komme en bålplads til hyggeaftner ved",
+    "status": "Ikke vedtaget",
+    "status-beskrivelse": "Blev ikke vedtaget, da det det er desværre ikke muligt, da der skal være 10 meter fra bålpladsen til beplantning eller boliger."
+  },
+  {
+    "dato-fremsat": "2025-02-15",
     "dato-genoptaget": "2025-04-06",
     "titel": "Langtidsbudget for vedligeholdelse",
     "beskrivelse": "Forslag om at der udarbejdes et rullende 5-årsbudget for både veje og SF-stier.",
@@ -19,6 +26,7 @@
     "titel": "Indretning af nye parkeringspladser ved Rytterparken 28-72",
     "beskrivelse": "Forslag om etablering af op til 32 parkeringspladser, herunder ændringer i belægning, grøn beplantning og adgangsforhold. Forslaget ledsages af bilag og plantegning.",
     "status": "Ukendt behandlingsstatus",
+    "status-beskrivelse": "",
     "bilag": {
       "filnavn": "Bilag: Parkeringspladser 2023",
       "link": "documents/forslag/2023-forslag-til-parkering.pdf",
