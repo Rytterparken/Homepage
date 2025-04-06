@@ -19,10 +19,10 @@ function renderOpgaverAccordion() {
       data.forEach((person, index) => {
         const id = `flush-${slugify(person.navn || `person-${index}`)}`;
 
-        const ikon = person.ikon ? `${person.ikon} ` : "";
-        const navn = person.navn || "Ukendt";
-        const titel = person.titel ? `– ${person.titel}` : "";
-        const opgaver = Array.isArray(person.opgaver) ? person.opgaver : [];
+        const ikon = person.Ikon ? `${person.Ikon} ` : "";
+        const navn = person.Navn || "Ukendt";
+        const titel = person.Titel ? `– ${person.Titel}` : "";
+        const opgaver = Array.isArray(person.Opgaver) ? person.Opgaver : [];
 
         const item = document.createElement("div");
         item.className = "accordion-item";
