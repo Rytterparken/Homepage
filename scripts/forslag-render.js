@@ -19,7 +19,6 @@ window.renderForslag = function () {
 
       container.innerHTML = "";
 
-      // Ensartet deadline-data
       const deadlineData = USE_LIVE_DATA
         ? {
             "naeste-deadline": deadlineRaw[0]["næstedeadline"],
@@ -28,12 +27,11 @@ window.renderForslag = function () {
         : deadlineRaw;
 
       const forslagData = forslagRaw.map(f => {
-        // Google Sheets keys er lowercase uden mellemrum
         if (USE_LIVE_DATA) {
           const bilag = f["bilag-filnavn"] || f["bilag-link"]
             ? {
                 filnavn: f["bilag-filnavn"] || "Bilag",
-                link: f["bilag-link"] || "#",
+                link: `documents/forslag/${f["bilag-link"] || ""}`,
                 type: f["bilag-type"] || ""
               }
             : null;
@@ -56,10 +54,11 @@ window.renderForslag = function () {
       const deadlineNext = new Date(deadlineData["naeste-deadline"]);
       const erMellemDeadlines = now >= deadlinePrevious && now < deadlineNext;
 
-      const day = deadlineNext.getDate();
-      const month = deadlineNext.toLocaleString("da-DK", { month: "long" }).toLowerCase();
-      const year = deadlineNext.getFullYear();
-      const formattedDeadline = `${day}. ${month} ${year}`;
+      const formattedDeadline = deadlineNext.toLocaleDateString("da-DK", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
 
       const deadlineTextEl = document.getElementById("forslagsDeadlineText");
       if (deadlineTextEl) {
@@ -73,15 +72,8 @@ window.renderForslag = function () {
         return d >= deadlinePrevious && d < deadlineNext;
       });
 
-      const tidligere = forslagData.filter(f => {
-        const d = getDato(f);
-        return d < deadlinePrevious;
-      });
-
-      const fremtidige = forslagData.filter(f => {
-        const d = getDato(f);
-        return d >= deadlineNext;
-      });
+      const tidligere = forslagData.filter(f => getDato(f) < deadlinePrevious);
+      const fremtidige = forslagData.filter(f => getDato(f) >= deadlineNext);
 
       const lavAccordionItems = (forslag, årstal, accordionId, parentIdPrefix) => {
         const wrapper = document.createElement("div");
@@ -107,9 +99,16 @@ window.renderForslag = function () {
 
           const statusLower = (f.status || "").toLowerCase();
           let badgeClass = "badge-outline-secondary";
-          if (statusLower.includes("ikke vedtaget") || statusLower.includes("afvist")) {
+          if (
+            statusLower.includes("ikke vedtaget") ||
+            statusLower.includes("afvist") ||
+            statusLower.includes("henlagt")
+          ) {
             badgeClass = "badge-outline-warning";
-          } else if (statusLower.includes("vedtaget") || statusLower.includes("godkendt")) {
+          } else if (
+            statusLower.includes("vedtaget") ||
+            statusLower.includes("godkendt")
+          ) {
             badgeClass = "badge-outline-success";
           }
 
@@ -135,7 +134,9 @@ window.renderForslag = function () {
                 ${f.bilag ? `
                   <p><strong>Bilag:</strong> 
                     <a href="${f.bilag.link}" target="_blank">${f.bilag.filnavn}</a>
-                    ${f.bilag.type === "pdf" ? `<br><embed src="${f.bilag.link}" type="application/pdf" width="100%" height="400px" class="mt-2 rounded shadow-sm" />` : ""}
+                    ${f.bilag.type === "pdf"
+                      ? `<br><embed src="${f.bilag.link}" type="application/pdf" width="100%" height="400px" class="mt-2 rounded shadow-sm" />`
+                      : ""}
                   </p>` : ""}
               </div>
             </div>
