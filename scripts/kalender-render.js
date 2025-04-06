@@ -1,5 +1,5 @@
 window.renderCalendar = function () {
-  const USE_LIVE_DATA = true;
+  const USE_LIVE_DATA = window.USE_LIVE_DATA;
   const sheetName = "Kalender";
 
   const dataUrl = USE_LIVE_DATA

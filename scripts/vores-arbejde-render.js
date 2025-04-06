@@ -1,5 +1,5 @@
 function renderOpgaverAccordion() {
-  const USE_LIVE_DATA = true;
+  const USE_LIVE_DATA = window.USE_LIVE_DATA;
   const sheetName = "opgaver";
 
   const dataUrl = USE_LIVE_DATA
