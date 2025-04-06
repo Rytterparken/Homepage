@@ -22,7 +22,7 @@ function renderDokumenter() {
             const aYear = a.fil.match(/\d{4}/)?.[0] ?? 0;
             const bYear = b.fil.match(/\d{4}/)?.[0] ?? 0;
             return bYear - aYear;
-          }).reverse();
+          });
   
           const links = dokumenter.map(doc => {
             const år = doc.fil.match(/\d{4}/)?.[0] ?? "";
