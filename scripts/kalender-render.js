@@ -1,41 +1,67 @@
-window.renderCalendarFromXLSX = function () {
-  fetch("data/kalender.xlsx")
-    .then(res => res.arrayBuffer())
-    .then(data => {
-      const workbook = XLSX.read(data, { type: "array" });
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const rows = XLSX.utils.sheet_to_json(sheet, { raw: false });
+window.renderCalendar = function () {
+  const USE_LIVE_DATA = true;
+  const sheetName = "Kalender";
 
-      const calendarList = document.getElementById("calendar-list");
-      calendarList.innerHTML = "";
+  const dataUrl = USE_LIVE_DATA
+    ? `${window.GOOGLE_SHEETS_DATA}?ark=${sheetName}`
+    : "data/kalender.xlsx";
 
-      rows.forEach(event => {
-        const date = new Date(event.Dato);
-        const formattedDate = date.toLocaleDateString("da-DK", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric"
-        });
+  const calendarList = document.getElementById("calendar-list");
+  if (!calendarList) return;
+  calendarList.innerHTML = "";
 
-        const formattedTime = event.Tid ? ` kl. ${event.Tid}` : "";
-
-        // Badge afhængig af Type
-        let badgeHTML = "";
-        if (event.Type?.toLowerCase() === "intern") {
-          badgeHTML = `<span class="badge bg-secondary ms-1">Kun bestyrelsen</span>`;
-        } else if (event.Type?.toLowerCase() === "alle") {
-          badgeHTML = `<span class="badge bg-success ms-1">For medlemmer</span>`;
-        }
-
-        const sted = event.Sted && event.Sted !== "-" ? `📍 ${event.Sted} – ` : "";
-
-        const li = document.createElement("li");
-        li.className = "mb-3";
-        li.innerHTML = `
-          <strong>${event.Titel}</strong> ${badgeHTML}<br>
-          ${sted}<em>${formattedDate}${formattedTime}</em>
-        `;
-        calendarList.appendChild(li);
+  if (!USE_LIVE_DATA) {
+    // Brug lokal Excel-fil
+    fetch(dataUrl)
+      .then(res => res.arrayBuffer())
+      .then(data => {
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(sheet, { raw: false });
+        renderCalendarItems(rows, false);
+      })
+      .catch(err => {
+        console.error("Fejl ved lokal kalenderfil:", err);
       });
+  } else {
+    // Brug Google Sheets
+    fetch(dataUrl)
+      .then(res => res.json())
+      .then(rows => {
+        renderCalendarItems(rows, true);
+      })
+      .catch(err => {
+        console.error("Kunne ikke hente kalenderdata fra Sheets:", err);
+      });
+  }
+
+  function renderCalendarItems(rows, isLive) {
+    rows.forEach(event => {
+      const dato = isLive ? event.dato : event.Dato;
+      const tid = isLive ? event.tid : event.Tid;
+      const titel = isLive ? event.titel : event.Titel;
+      const sted = isLive ? event.sted : event.Sted;
+      const type = (isLive ? event.type : event.Type || "").toLowerCase();
+
+      const formattedDate = dato || "Ukendt dato";
+      const formattedTime = tid ? ` kl. ${tid}` : "";
+
+      let badgeHTML = "";
+      if (type === "intern") {
+        badgeHTML = `<span class="badge bg-secondary ms-1">Kun bestyrelsen</span>`;
+      } else if (type === "alle") {
+        badgeHTML = `<span class="badge bg-success ms-1">For medlemmer</span>`;
+      }
+
+      const stedText = sted && sted !== "-" ? `📍 ${sted} – ` : "";
+
+      const li = document.createElement("li");
+      li.className = "mb-3";
+      li.innerHTML = `
+        <strong>${titel || "Ukendt titel"}</strong> ${badgeHTML}<br>
+        ${stedText}<em>${formattedDate}${formattedTime}</em>
+      `;
+      calendarList.appendChild(li);
     });
+  }
 };
