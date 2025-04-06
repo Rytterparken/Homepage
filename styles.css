@@ -213,3 +213,20 @@ main {
     margin-left: 2rem; /* Eller 1.5rem hvis du vil have mere luft */
   }
 }
+
+.forslag-status-badge {
+  font-size: 0.75rem;
+  padding: 0.35em 0.75em;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badge-outline-secondary {
+  color: #6c757d; /* Samme som Bootstrap secondary tekstfarve */
+  border: 1px solid #6c757d;
+  background-color: transparent;
+  font-size: 0.75rem;
+  padding: 0.35em 0.75em;
+  border-radius: 999px;
+  white-space: nowrap;
+}
