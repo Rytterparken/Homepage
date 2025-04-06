@@ -46,7 +46,7 @@ loadSection('hvem-er-vi', 'hvem-er-vi.html', function () {
   renderRolleListe("legepladsudvalg-render", "data/roller/legepladsudvalg.json");
 });
 
-loadSection('vores-arbejde', 'vores-arbejde.html');
+loadSection('vores-arbejde', 'vores-arbejde.html', renderOpgaverAccordion);
 loadSection('for-beboere', 'for-beboere.html', function () {
   renderHouses();
   initMailchimpForm();

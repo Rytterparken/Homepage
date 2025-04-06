@@ -1,0 +1,43 @@
+[
+    {
+      "navn": "Ulla",
+      "titel": "Formand",
+      "ikon": "👩‍⚖️",
+      "opgaver": [
+        "Kontakter asfaltfirma for pris og forslag til vedligeholdelsesplan",
+        "Dialog med AquaDjurs om udbedring af dæksler og belægning",
+        "Har rejst forslag om opdatering af vedtægter (afventer videre behandling)"
+      ]
+    },
+    {
+      "navn": "Susanne",
+      "titel": "Vintertjeneste",
+      "ikon": "❄️",
+      "opgaver": [
+        "Holder overblik over vintertjenesten i hele området",
+        "Følge op på snerydning og eventuelle fejl eller mangler",
+        "Kontakt til leverandør ved ændringer eller spørgsmål"
+      ]
+    },
+    {
+      "navn": "Helle",
+      "titel": "Grønne arealer",
+      "ikon": "🌱",
+      "opgaver": [
+        "Holder overblik over vedligehold af grønne områder",
+        "Følger op på kvaliteten af arbejdet (fx græsslåning, beskæring)",
+        "Kontakt til leverandør ved ændringer eller mangler"
+      ]
+    },
+    {
+      "navn": "Astrid",
+      "titel": "Fællesarealer",
+      "ikon": "🏘️",
+      "opgaver": [
+        "Overblik over stand og behov på fællesarealerne",
+        "Registrerer og melder fejl eller behov for vedligehold",
+        "Deltager i drøftelser om fællesområdernes brug og udseende"
+      ]
+    }
+  ]
+  
