@@ -5,7 +5,7 @@ function renderRolleListe(containerId, jsonPath) {
         const container = document.getElementById(containerId);
         if (!container) return;
   
-        container.innerHTML = ""; // ryd evt. eksisterende indhold
+        container.innerHTML = "";
   
         medlemmer.forEach(medlem => {
           const col = document.createElement("div");
