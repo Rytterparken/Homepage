@@ -10,8 +10,8 @@ Promise.all([
 
   // Parse deadlines
   const now = new Date();
-  const deadlinePrevious = new Date(deadlineData["last-deadline"]);
-  const deadlineNext = new Date(deadlineData["next-deadline"]);
+  const deadlinePrevious = new Date(deadlineData["sidste-deadline"]);
+  const deadlineNext = new Date(deadlineData["naeste-deadline"]);
   const erMellemDeadlines = now >= deadlinePrevious && now < deadlineNext;
 
   const day = deadlineNext.getDate();
