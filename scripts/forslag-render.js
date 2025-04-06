@@ -49,6 +49,12 @@ Promise.all([
       item.className = "accordion-item";
       const visningsdato = new Date(f.dato).toLocaleDateString("da-DK");
 
+      // Badge-stil baseret på status
+      const statusLower = f.status.toLowerCase();
+      const badgeClass = statusLower.includes("vedtaget")
+        ? "badge-outline-success"
+        : "badge-outline-secondary";
+
       item.innerHTML = `
         <h2 class="accordion-header" id="heading-${parentIdPrefix}-${årstal}-${i}">
           <button class="accordion-button collapsed" type="button"
@@ -57,7 +63,7 @@ Promise.all([
                   aria-expanded="false" aria-controls="collapse-${parentIdPrefix}-${årstal}-${i}">
             <div class="w-100 d-flex justify-content-between align-items-center">
               <span>📝 ${f.titel}</span>
-              <span class="badge badge-outline-secondary forslag-status-badge me-3">${f.status}</span>
+              <span class="badge ${badgeClass} forslag-status-badge me-3">${f.status}</span>
             </div>
           </button>
         </h2>
@@ -66,7 +72,6 @@ Promise.all([
           <div class="accordion-body">
             <p><strong>Dato:</strong> ${visningsdato}</p>
             <p><strong>Forslag:</strong> ${f.beskrivelse}</p>
-            <p><strong>Status:</strong> ${f.status}</p>
             ${f.bilag ? `
               <p><strong>Bilag:</strong> 
                 <a href="${f.bilag.link}" target="_blank">${f.bilag.filnavn}</a>

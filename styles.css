@@ -230,3 +230,9 @@ main {
   border-radius: 999px;
   white-space: nowrap;
 }
+
+.badge-outline-success {
+  color: #198754;
+  border: 1px solid #198754;
+  background-color: transparent;
+}
