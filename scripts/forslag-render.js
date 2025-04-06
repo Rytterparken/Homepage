@@ -24,17 +24,17 @@ Promise.all([
   }
 
   const aktuelle = forslagData.filter(f => {
-    const forslagDato = new Date(f.dato);
+    const forslagDato = new Date(f["dato-genoptaget"] || f["dato-fremsat"] || f.dato);
     return forslagDato >= deadlinePrevious && forslagDato < deadlineNext;
   });
 
   const tidligere = forslagData.filter(f => {
-    const forslagDato = new Date(f.dato);
+    const forslagDato = new Date(f["dato-genoptaget"] || f["dato-fremsat"] || f.dato);
     return forslagDato < deadlinePrevious;
   });
 
   const fremtidige = forslagData.filter(f => {
-    const forslagDato = new Date(f.dato);
+    const forslagDato = new Date(f["dato-genoptaget"] || f["dato-fremsat"] || f.dato);
     return forslagDato >= deadlineNext;
   });
 
@@ -47,13 +47,19 @@ Promise.all([
     forslag.forEach((f, i) => {
       const item = document.createElement("div");
       item.className = "accordion-item";
-      const visningsdato = new Date(f.dato).toLocaleDateString("da-DK");
+
+      const fremsatDato = new Date(f["dato-fremsat"] || f.dato);
+      const genoptagetDato = f["dato-genoptaget"] ? new Date(f["dato-genoptaget"]) : null;
+
+      const visFremsat = `<p><strong>Fremsat:</strong> ${fremsatDato.toLocaleDateString("da-DK")}</p>`;
+      const visGenoptaget = (genoptagetDato && genoptagetDato.getTime() !== fremsatDato.getTime())
+        ? `<p><strong>Genoptaget:</strong> ${genoptagetDato.toLocaleDateString("da-DK")}</p>`
+        : "";
 
       // Badge-stil baseret på status
       const statusLower = f.status.toLowerCase();
       let badgeClass = "badge-outline-secondary";
-      
-      // Tjek "ikke"-ord først for at undgå falsk positiv ved 'vedtaget'
+
       if (
         statusLower.includes("ikke vedtaget") ||
         statusLower.includes("tilsidesat") ||
@@ -66,7 +72,7 @@ Promise.all([
         statusLower.includes("godkendt")
       ) {
         badgeClass = "badge-outline-success";
-      }      
+      }
 
       item.innerHTML = `
         <h2 class="accordion-header" id="heading-${parentIdPrefix}-${årstal}-${i}">
@@ -83,7 +89,8 @@ Promise.all([
         <div id="collapse-${parentIdPrefix}-${årstal}-${i}" class="accordion-collapse collapse"
              aria-labelledby="heading-${parentIdPrefix}-${årstal}-${i}" data-bs-parent="#${accordionId}">
           <div class="accordion-body">
-            <p><strong>Dato:</strong> ${visningsdato}</p>
+            ${visFremsat}
+            ${visGenoptaget}
             <p><strong>Forslag:</strong> ${f.beskrivelse}</p>
             ${f.bilag ? `
               <p><strong>Bilag:</strong> 
@@ -99,13 +106,15 @@ Promise.all([
 
   // Aktuelle forslag
   if (aktuelle.length > 0) {
-    const nyesteÅr = [...new Set(aktuelle.map(f => new Date(f.dato).getFullYear()))].sort((a, b) => b - a);
+    const nyesteÅr = [...new Set(aktuelle.map(f => new Date(f["dato-genoptaget"] || f["dato-fremsat"] || f.dato).getFullYear()))].sort((a, b) => b - a);
     const senesteÅr = nyesteÅr[0];
 
     container.appendChild(document.createElement("hr"));
 
     nyesteÅr.forEach(årstal => {
-      const forslag = aktuelle.filter(f => new Date(f.dato).getFullYear() === årstal);
+      const forslag = aktuelle.filter(f =>
+        new Date(f["dato-genoptaget"] || f["dato-fremsat"] || f.dato).getFullYear() === årstal
+      );
       const heading = document.createElement("h3");
       heading.className = "mb-3 mt-4";
       heading.textContent = årstal === senesteÅr && erMellemDeadlines
@@ -130,9 +139,11 @@ Promise.all([
     infobox.innerHTML = `ℹ️ Tidligere forslag vises nedenfor. De bevares for at undgå gentagelser – og for at give mulighed for at genfremsætte dem, hvis behov eller forhold har ændret sig.`;
     container.appendChild(infobox);
 
-    const årstalGrupper = [...new Set(tidligere.map(f => new Date(f.dato).getFullYear()))].sort((a, b) => b - a);
+    const årstalGrupper = [...new Set(tidligere.map(f => new Date(f["dato-genoptaget"] || f["dato-fremsat"] || f.dato).getFullYear()))].sort((a, b) => b - a);
     årstalGrupper.forEach(årstal => {
-      const forslag = tidligere.filter(f => new Date(f.dato).getFullYear() === årstal);
+      const forslag = tidligere.filter(f =>
+        new Date(f["dato-genoptaget"] || f["dato-fremsat"] || f.dato).getFullYear() === årstal
+      );
       const heading = document.createElement("h3");
       heading.className = "mb-3 mt-4";
       heading.textContent = `📜 Tidligere forslag fra ${årstal}`;
