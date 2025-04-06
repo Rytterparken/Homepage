@@ -1,9 +1,11 @@
-function renderBestyrelse() {
-    fetch("data/bestyrelse.json")
+function renderRolleListe(containerId, jsonPath) {
+    fetch(jsonPath)
       .then(response => response.json())
       .then(medlemmer => {
-        const container = document.getElementById("bestyrelse-render");
+        const container = document.getElementById(containerId);
         if (!container) return;
+  
+        container.innerHTML = ""; // ryd evt. eksisterende indhold
   
         medlemmer.forEach(medlem => {
           const col = document.createElement("div");
@@ -32,7 +34,7 @@ function renderBestyrelse() {
         });
       })
       .catch(error => {
-        console.error("Kunne ikke hente bestyrelsesmedlemmer:", error);
+        console.error(`Kunne ikke hente data fra ${jsonPath}:`, error);
       });
   }
   
