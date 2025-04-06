@@ -9,8 +9,6 @@ function renderOpgaverAccordion() {
   fetch(dataUrl)
     .then(response => response.json())
     .then(data => {
-      console.log("Fetched opgave-data:", data);
-
       const container = document.getElementById("arbejdsopgaverEkstra");
       if (!container) return;
       container.innerHTML = "";
@@ -23,8 +21,6 @@ function renderOpgaverAccordion() {
         const titel = person.titel || "";
         const ikon = person.ikon || "";
         const opgaver = Array.isArray(person.opgaver) ? person.opgaver : [];
-
-        console.log(`Navn: ${navn}, Opgaver:`, opgaver);
 
         const id = `flush-${slugify(navn)}`;
         const item = document.createElement("div");
