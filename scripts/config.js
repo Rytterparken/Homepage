@@ -1,2 +1,2 @@
 window.GOOGLE_SHEETS_DATA = "https://script.google.com/macros/s/AKfycbzgnODTa_-UuW-f6ukv2RnLAAyC3SGOrFhvZHaopDl_d2humLno5XU33ZYOcjBOd6bErQ/exec"
-window.USE_LIVE_DATA = false; // skift til false for at bruge lokal data
+window.USE_LIVE_DATA = true; // skift til false for at bruge lokal data
