@@ -15,7 +15,7 @@ function renderDokumenter() {
     const row = document.getElementById("dokumenter-row");
   
     kategorier.forEach(({ key, navn, ikon, prefix }) => {
-      fetch(`data/${key}.json`)
+      fetch(`data/dokumenter/${key}.json`)
         .then(res => res.json())
         .then(dokumenter => {
           dokumenter.sort((a, b) => {
