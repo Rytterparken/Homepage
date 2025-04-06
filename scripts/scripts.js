@@ -50,8 +50,8 @@ loadSection('vores-arbejde', 'vores-arbejde.html', renderOpgaverAccordion);
 loadSection('for-beboere', 'for-beboere.html', function () {
   renderHouses();
   initMailchimpForm();
-  if (typeof renderCalendarFromXLSX === "function") {
-    renderCalendarFromXLSX();
+  if (typeof renderCalendar === "function") {
+    renderCalendar();
   }
   enableZoomPanOnMap();
 });
