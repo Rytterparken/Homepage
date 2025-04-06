@@ -40,11 +40,18 @@ loadSection('dokumenter', 'dokumenter.html', function () {
   }
 });
 loadSection('hvem-er-vi', 'hvem-er-vi.html', function () {
-  renderRolleListe("bestyrelse-render", "data/roller/bestyrelse.json");
-  renderRolleListe("suppleanter-render", "data/roller/suppleanter.json");
-  renderRolleListe("revisorer-render", "data/roller/revisorer.json");
-  renderRolleListe("legepladsudvalg-render", "data/roller/legepladsudvalg.json");
+  const base = window.GOOGLE_SHEETS_DATA;
+  const isLive = window.USE_LIVE_DATA;
+
+  const prefix = isLive ? base + "?ark=" : "data/roller/";
+  const suffix = isLive ? "" : ".json";
+
+  renderRolleListe("bestyrelse-render", `${prefix}Bestyrelse${suffix}`);
+  renderRolleListe("suppleanter-render", `${prefix}Suppleanter${suffix}`);
+  renderRolleListe("revisorer-render", `${prefix}Revisorer${suffix}`);
+  renderRolleListe("legepladsudvalg-render", `${prefix}Legepladsudvalg${suffix}`);
 });
+
 
 loadSection('vores-arbejde', 'vores-arbejde.html', renderOpgaverAccordion);
 loadSection('for-beboere', 'for-beboere.html', function () {
