@@ -51,9 +51,22 @@ Promise.all([
 
       // Badge-stil baseret på status
       const statusLower = f.status.toLowerCase();
-      const badgeClass = statusLower.includes("vedtaget")
-        ? "badge-outline-success"
-        : "badge-outline-secondary";
+      let badgeClass = "badge-outline-secondary";
+      
+      // Tjek "ikke"-ord først for at undgå falsk positiv ved 'vedtaget'
+      if (
+        statusLower.includes("ikke vedtaget") ||
+        statusLower.includes("tilsidesat") ||
+        statusLower.includes("henlagt") ||
+        statusLower.includes("afvist")
+      ) {
+        badgeClass = "badge-outline-warning";
+      } else if (
+        statusLower.includes("vedtaget") ||
+        statusLower.includes("godkendt")
+      ) {
+        badgeClass = "badge-outline-success";
+      }      
 
       item.innerHTML = `
         <h2 class="accordion-header" id="heading-${parentIdPrefix}-${årstal}-${i}">
