@@ -11,13 +11,15 @@ window.renderCalendarFromXLSX = function () {
 
       rows.forEach(event => {
         const date = new Date(event.Dato);
-        const formattedDate = date.toLocaleDateString('da-DK', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
+        const formattedDate = date.toLocaleDateString("da-DK", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
         });
 
-        // Bestem badge afhængig af Type
+        const formattedTime = event.Tid ? ` kl. ${event.Tid}` : "";
+
+        // Badge afhængig af Type
         let badgeHTML = "";
         if (event.Type?.toLowerCase() === "intern") {
           badgeHTML = `<span class="badge bg-secondary ms-1">Kun bestyrelsen</span>`;
@@ -25,11 +27,13 @@ window.renderCalendarFromXLSX = function () {
           badgeHTML = `<span class="badge bg-success ms-1">For medlemmer</span>`;
         }
 
+        const sted = event.Sted && event.Sted !== "-" ? `📍 ${event.Sted} – ` : "";
+
         const li = document.createElement("li");
         li.className = "mb-3";
         li.innerHTML = `
           <strong>${event.Titel}</strong> ${badgeHTML}<br>
-          📍 ${event.Sted} – <em>${formattedDate}</em>
+          ${sted}<em>${formattedDate}${formattedTime}</em>
         `;
         calendarList.appendChild(li);
       });
