@@ -10,6 +10,9 @@ Promise.all([
 
   // Parse deadline
   const deadline = new Date(deadlineData.deadline);
+  const now = new Date();
+  const erFørDeadlineIRL = now < deadline;
+
   const day = deadline.getDate();
   const month = deadline.toLocaleString("da-DK", { month: "long" }).toLowerCase();
   const year = deadline.getFullYear();
@@ -40,7 +43,7 @@ Promise.all([
 
       const heading = document.createElement("h3");
       heading.className = "mb-3 mt-4";
-      heading.textContent = årstal === senesteÅr
+      heading.textContent = årstal === senesteÅr && erFørDeadlineIRL
         ? "🗳️ Forslag til næste generalforsamling"
         : `📋 Forslag til ${årstal}`;
       container.appendChild(heading);
