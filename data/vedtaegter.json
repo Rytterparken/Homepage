@@ -3,19 +3,19 @@
       "id": "juridisk",
       "titel": "Juridisk version",
       "beskrivelse": "Billeder af de originale papirer skrevet i 1987.",
-      "fil": "documents/vedtaegter/vedtaegter-juridisk.pdf"
+      "fil": "vedtaegter/vedtaegter-juridisk.pdf"
     },
     {
       "id": "digitaliseret",
       "titel": "Digitaliseret version",
       "beskrivelse": "Skriftlige versioner, så du kan kopiere og søge i teksten.",
-      "fil": "documents/vedtaegter/vedtaegter-digitaliseret.pdf"
+      "fil": "vedtaegter/vedtaegter-digitaliseret.pdf"
     },
     {
       "id": "tldr",
       "titel": "Oversat version",
       "beskrivelse": "En version, hvor teksten er omskrevet til moderne, forståeligt sprog.",
-      "fil": "documents/vedtaegter/vedtaegter-tldr.pdf"
+      "fil": "vedtaegter/vedtaegter-tldr.pdf"
     }
   ]
   
