@@ -1,5 +1,5 @@
 window.renderForslag = function () {
-  const USE_LIVE_DATA = window.USE_LIVE_DATA ?? false; // Sæt globalt i config
+  const USE_LIVE_DATA = window.USE_LIVE_DATA ?? false;
   const baseUrl = window.GOOGLE_SHEETS_DATA;
 
   const fetchData = USE_LIVE_DATA
@@ -28,13 +28,12 @@ window.renderForslag = function () {
 
       const forslagData = forslagRaw.map(f => {
         if (USE_LIVE_DATA) {
-          const bilag = f["bilag-filnavn"] || f["bilag-link"]
-            ? {
-                filnavn: f["bilag-filnavn"] || "Bilag",
-                link: `documents/forslag/${f["bilag-link"] || ""}`,
-                type: f["bilag-type"] || ""
-              }
-            : null;
+          const rawLink = f["bilag-link"] || "";
+          let link = rawLink;
+          if (rawLink.includes("drive.google.com/file/d/") && rawLink.includes("/view")) {
+            const id = rawLink.split("/d/")[1]?.split("/")[0];
+            link = `https://drive.google.com/file/d/${id}/preview`;
+          }
           return {
             "dato-fremsat": f["datofremsat"],
             "dato-genoptaget": f["datogenoptaget"],
@@ -42,7 +41,10 @@ window.renderForslag = function () {
             "beskrivelse": f["beskrivelse"],
             "status": f["status"],
             "status-beskrivelse": f["statusbeskrivelse"],
-            bilag
+            bilag: rawLink ? {
+              filnavn: f["bilag-filnavn"] || "Bilag",
+              link
+            } : null
           };
         } else {
           return f;
@@ -132,11 +134,10 @@ window.renderForslag = function () {
                 <p><strong>Forslag:</strong> ${f.beskrivelse}</p>
                 ${visStatusBeskrivelse}
                 ${f.bilag ? `
-                  <p><strong>Bilag:</strong> 
+                  <p><strong>Bilag:</strong>
                     <a href="${f.bilag.link}" target="_blank">${f.bilag.filnavn}</a>
-                    ${f.bilag.type === "pdf"
-                      ? `<br><embed src="${f.bilag.link}" type="application/pdf" width="100%" height="400px" class="mt-2 rounded shadow-sm" />`
-                      : ""}
+                    <br>
+                    <iframe src="${f.bilag.link}" width="100%" height="400px" style="border: none;" class="mt-2 rounded shadow-sm"></iframe>
                   </p>` : ""}
               </div>
             </div>
@@ -145,7 +146,6 @@ window.renderForslag = function () {
         });
       };
 
-      // Aktuelle
       if (aktuelle.length > 0) {
         const nyesteÅr = [...new Set(aktuelle.map(f => getDato(f).getFullYear()))].sort((a, b) => b - a);
         const senesteÅr = nyesteÅr[0];
@@ -169,7 +169,6 @@ window.renderForslag = function () {
         `;
       }
 
-      // Tidligere
       if (tidligere.length > 0) {
         container.appendChild(document.createElement("hr"));
         const infobox = document.createElement("div");
@@ -189,7 +188,6 @@ window.renderForslag = function () {
         });
       }
 
-      // Fremtidige
       if (fremtidige.length > 0) {
         container.appendChild(document.createElement("hr"));
         const heading = document.createElement("h3");
