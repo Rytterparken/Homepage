@@ -5,6 +5,7 @@ function renderDokumenter() {
   const kategorier = [
     { key: "regnskaber", navn: "Regnskaber", ikon: "📊", prefix: "Regnskab" },
     { key: "budgetter", navn: "Budgetter", ikon: "💸", prefix: "Budget" },
+    { key: "indkaldelser", navn: "Indkaldelser", ikon: "📅", prefix: "Indkaldelse" },
     { key: "referater", navn: "Referater", ikon: "📚", prefix: "Generalforsamling" },
     { key: "bestyrelsesmoeder", navn: "Bestyrelsesmøder", ikon: "📝", prefix: "Bestyrelsesmøde" },
     { key: "arkiv", navn: "Arkiv", ikon: "🗄️", prefix: null }
