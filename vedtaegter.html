@@ -1,86 +1,12 @@
 <h2>Vedtægter</h2>
 <p>Her kan du læse og downloade foreningens vedtægter. Vælg den version, der passer bedst til dine behov:</p>
 
-<ul class="nav nav-tabs" id="bylawsTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="juridisk-tab" data-bs-toggle="tab" data-bs-target="#juridisk" type="button" role="tab">Juridisk version</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="digitaliseret-tab" data-bs-toggle="tab" data-bs-target="#digitaliseret" type="button" role="tab">Digitaliseret version</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="tldr-tab" data-bs-toggle="tab" data-bs-target="#tldr" type="button" role="tab">Oversat version</button>
-  </li>
-</ul>
+<ul class="nav nav-tabs" id="bylawsTab" role="tablist"></ul>
 
 <div class="bg-white rounded">
-  <div class="tab-content border border-top-0 p-3" id="bylawsTabContent" style="min-height: 600px;">
-    <div class="tab-pane fade" id="juridisk" role="tabpanel">
-      <iframe src="documents/vedtaegter/vedtaegter-juridisk.pdf" width="100%" height="600px" style="border: none;"></iframe>
-    </div>
-    <div class="tab-pane fade show active" id="digitaliseret" role="tabpanel">
-      <iframe src="documents/vedtaegter/vedtaegter-digitaliseret.pdf" width="100%" height="600px" style="border: none;"></iframe>
-    </div>
-    <div class="tab-pane fade" id="tldr" role="tabpanel">
-      <iframe src="documents/vedtaegter/vedtaegter-tldr.pdf" width="100%" height="600px" style="border: none;"></iframe>
-    </div>
-  </div>
+  <div class="tab-content border border-top-0 p-3" id="bylawsTabContent" style="min-height: 600px;"></div>
 </div>
 
 <div class="my-4"></div>
 
-<div class="row">
-  <!-- Juridisk version -->
-  <div class="col-md-4 mb-3">
-    <div class="card h-100">
-      <div class="card-body d-flex flex-column">
-        <h5 class="card-title">Juridisk version</h5>
-        <p class="card-text">Billeder af de originale papirer skrevet i 1987.</p>
-        <div class="mt-auto row g-2">
-          <div class="col-6">
-            <a href="documents/vedtaegter/vedtaegter-juridisk.pdf" target="_blank" class="btn btn-primary w-100">Se i browser</a>
-          </div>
-          <div class="col-6">
-            <a href="documents/vedtaegter/vedtaegter-juridisk.pdf" download class="btn btn-outline-primary w-100">Download PDF</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Digitaliseret version -->
-  <div class="col-md-4 mb-3">
-    <div class="card h-100">
-      <div class="card-body d-flex flex-column">
-        <h5 class="card-title">Digitaliseret version</h5>
-        <p class="card-text">Skriftlige versioner, så du kan kopiere og søge i teksten.</p>
-        <div class="mt-auto row g-2">
-          <div class="col-6">
-            <a href="documents/vedtaegter/vedtaegter-digitaliseret.pdf" target="_blank" class="btn btn-primary w-100">Se i browser</a>
-          </div>
-          <div class="col-6">
-            <a href="documents/vedtaegter/vedtaegter-digitaliseret.pdf" download class="btn btn-outline-primary w-100">Download PDF</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Oversat version -->
-  <div class="col-md-4 mb-3">
-    <div class="card h-100">
-      <div class="card-body d-flex flex-column">
-        <h5 class="card-title">Oversat version</h5>
-        <p class="card-text">En version, hvor teksten er omskrevet til moderne, forståeligt sprog.</p>
-        <div class="mt-auto row g-2">
-          <div class="col-6">
-            <a href="documents/vedtaegter/vedtaegter-tldr.pdf" target="_blank" class="btn btn-primary w-100">Se i browser</a>
-          </div>
-          <div class="col-6">
-            <a href="documents/vedtaegter/vedtaegter-tldr.pdf" download class="btn btn-outline-primary w-100">Download PDF</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="row" id="bylawsCards"></div>
