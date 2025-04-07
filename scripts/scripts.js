@@ -65,26 +65,7 @@ loadSection('for-beboere', 'for-beboere.html', function () {
 loadSection('forslag', 'forslag.html', renderForslag);
 
 // Når vedtægter er loadet, så initialiser tabs korrekt
-loadSection('vedtaegter', 'vedtaegter.html', function () {
-  // Vent lidt på DOM-render (nødvendigt i nogle browsere)
-  setTimeout(() => {
-    // Tilføj event listeners til tabs
-    const triggerTabList = document.querySelectorAll('#bylawsTab button');
-    triggerTabList.forEach(triggerEl => {
-      triggerEl.addEventListener('click', event => {
-        const tabTrigger = new bootstrap.Tab(triggerEl);
-        tabTrigger.show();
-      });
-    });
-
-    // Vælg aktiv tab (Digitaliseret)
-    const digitalTabBtn = document.getElementById('digitaliseret-tab');
-    if (digitalTabBtn) {
-      const digitalTab = new bootstrap.Tab(digitalTabBtn);
-      digitalTab.show();
-    }
-  }, 0); // Kører efter DOM er opdateret
-});
+loadSection('vedtaegter', 'vedtaegter.html', renderVedtaegter);
 
 // Vis forside som udgangspunkt
 document.addEventListener("DOMContentLoaded", function () {
