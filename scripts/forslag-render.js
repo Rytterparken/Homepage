@@ -2,18 +2,37 @@ window.renderForslag = function () {
   const USE_LIVE_DATA = window.USE_LIVE_DATA ?? false;
   const baseUrl = window.GOOGLE_SHEETS_DATA;
 
-  const fetchData = USE_LIVE_DATA
+  const fetchForslagsdata = USE_LIVE_DATA
     ? Promise.all([
         fetch(`${baseUrl}?ark=Forslag`).then(res => res.json()),
-        fetch(`${baseUrl}?ark=Forslags Deadline`).then(res => res.json())
+        fetch(`${baseUrl}?ark=Forslags Deadline`).then(res => res.json()),
+        fetch(`${baseUrl}?ark=Forslagsskabelon`).then(res => res.json())
       ])
     : Promise.all([
         fetch("data/forslag.json").then(res => res.json()),
-        fetch("data/forslags-deadline.json").then(res => res.json())
+        fetch("data/forslags-deadline.json").then(res => res.json()),
+        fetch("data/forslagsskabelon.json").then(res => res.json())
       ]);
 
-  fetchData
-    .then(([forslagRaw, deadlineRaw]) => {
+  fetchForslagsdata
+    .then(([forslagRaw, deadlineRaw, skabelonData]) => {
+      // VIS SKABELON-LINKET
+      const skabelonLinkWrapper = document.getElementById("forslagsskabelonLink");
+      if (skabelonLinkWrapper) {
+        const liveLink = USE_LIVE_DATA ? skabelonData[0]?.["link"] : skabelonData.link;
+        if (liveLink) {
+          skabelonLinkWrapper.innerHTML = `
+            <a class="btn btn-outline-primary" href="${liveLink}" target="_blank">
+              📄 Download forslagsskabelon (PDF)
+            </a>
+          `;
+        } else if (USE_LIVE_DATA) {
+          skabelonLinkWrapper.innerHTML = `
+            <div class="text-danger">⚠️ Kunne ikke hente skabelonen på nuværende tidspunkt.</div>
+          `;
+        }
+      }      
+
       const container = document.getElementById("forslagsAccordionGrid");
       if (!container) return;
 
