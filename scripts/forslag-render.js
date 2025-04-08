@@ -16,22 +16,30 @@ window.renderForslag = function () {
 
   fetchForslagsdata
     .then(([forslagRaw, deadlineRaw, skabelonData]) => {
-      // VIS SKABELON-LINKET
+      // VIS SKABELON-LINKENE (PDF og DOCX)
       const skabelonLinkWrapper = document.getElementById("forslagsskabelonLink");
       if (skabelonLinkWrapper) {
-        const liveLink = USE_LIVE_DATA ? skabelonData[0]?.["link"] : skabelonData.link;
-        if (liveLink) {
+        const data = USE_LIVE_DATA ? skabelonData[0] : skabelonData;
+        const linkPdf = data["link-pdf"];
+        const linkDocx = data["link-docx"];
+
+        if (linkPdf || linkDocx) {
           skabelonLinkWrapper.innerHTML = `
-            <a class="btn btn-outline-primary" href="${liveLink}" target="_blank">
-              📄 Download forslagsskabelon (PDF)
-            </a>
+            ${linkPdf ? `
+              <a class="btn btn-outline-primary" href="${linkPdf}" target="_blank">
+                📄 Vis forslagsskabelon (PDF)
+              </a>` : ""}  
+            ${linkDocx ? `
+              <a class="btn btn-outline-secondary me-2" href="${linkDocx}" target="_blank">
+                📝 Download forslagsskabelon (DOCX)
+              </a>` : ""}
           `;
         } else if (USE_LIVE_DATA) {
           skabelonLinkWrapper.innerHTML = `
             <div class="text-danger">⚠️ Kunne ikke hente skabelonen på nuværende tidspunkt.</div>
           `;
         }
-      }      
+      }
 
       const container = document.getElementById("forslagsAccordionGrid");
       if (!container) return;
