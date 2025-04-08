@@ -7,7 +7,7 @@ function renderDokumenter() {
     { key: "budgetter", navn: "Budgetter", ikon: "💸", prefix: "Budget" },
     { key: "indkaldelser", navn: "Indkaldelser", ikon: "📅", prefix: "Indkaldelse" },
     { key: "referater", navn: "Referater", ikon: "📚", prefix: "Generalforsamling" },
-    { key: "bestyrelsesmoeder", navn: "Bestyrelsesmøder", ikon: "📝", prefix: "Bestyrelsesmøde" },
+    // { key: "bestyrelsesmoeder", navn: "Bestyrelsesmøder", ikon: "📝", prefix: "Bestyrelsesmøde" }, (Vi skal have lov af bestyrelsen)
     { key: "arkiv", navn: "Arkiv", ikon: "🗄️", prefix: null }
   ];
 
