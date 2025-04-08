@@ -22,6 +22,7 @@ window.renderForslag = function () {
         const data = USE_LIVE_DATA ? skabelonData[0] : skabelonData;
         const linkPdf = data["link-pdf"];
         const linkDocx = data["link-docx"];
+        console.log(skabelonData[0])
 
         if (linkPdf || linkDocx) {
           skabelonLinkWrapper.innerHTML = `
