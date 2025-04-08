@@ -25,14 +25,16 @@ window.renderForslag = function () {
 
         if (linkPdf || linkDocx) {
           skabelonLinkWrapper.innerHTML = `
-            ${linkPdf ? `
-              <a class="btn btn-outline-primary" href="${linkPdf}" target="_blank">
-                📄 Vis forslagsskabelon (PDF)
-              </a>` : ""}  
-            ${linkDocx ? `
-              <a class="btn btn-outline-secondary me-2" href="${linkDocx}" target="_blank">
-                📝 Download forslagsskabelon (DOCX)
-              </a>` : ""}
+            <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2 text-center">
+              ${linkPdf ? `
+                <a class="btn btn-outline-primary mb-2" href="${linkPdf}" target="_blank">
+                  📄 Vis forslagsskabelon (PDF)
+                </a>` : ""}  
+              ${linkDocx ? `
+                <a class="btn btn-outline-secondary mb-2" href="${linkDocx}" target="_blank">
+                  📝 Download forslagsskabelon (DOCX)
+                </a>` : ""}
+            </div>
           `;
         } else if (USE_LIVE_DATA) {
           skabelonLinkWrapper.innerHTML = `
