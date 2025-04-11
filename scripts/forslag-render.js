@@ -81,8 +81,14 @@ window.renderForslag = function () {
       });
 
       const now = new Date();
-      const deadlinePrevious = new Date(deadlineData["sidste-deadline"]);
-      const deadlineNext = new Date(deadlineData["naeste-deadline"]);
+      
+      function parseDanskDato(datoStr) {
+        const [dag, måned, år] = datoStr.split("/").map(Number);
+        return new Date(år, måned - 1, dag); // måneder i JS er 0-indekseret
+      }
+      
+      const deadlinePrevious = parseDanskDato(deadlineData["sidste-deadline"]);
+      const deadlineNext = parseDanskDato(deadlineData["naeste-deadline"]);      
       const erMellemDeadlines = now >= deadlinePrevious && now < deadlineNext;
 
       const formattedDeadline = deadlineNext.toLocaleDateString("da-DK", {
