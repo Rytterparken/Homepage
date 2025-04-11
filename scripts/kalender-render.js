@@ -36,24 +36,26 @@ window.renderCalendar = function () {
   }
 
   function renderCalendarItems(rows, isLive) {
-    // Sortér rækker efter dato og tid
-    rows.sort((a, b) => {
-      const getDateTime = row => {
-        const dato = isLive ? row.dato : row.Dato;
-        const tid = isLive ? row.tid : row.Tid || "00:00";
+    const getDateTime = row => {
+      const dato = isLive ? row.dato : row.Dato;
+      const tid = isLive ? row.tid : row.Tid || "00:00";
   
-        if (!dato) return new Date(0); // fallback hvis dato mangler
+      if (!dato) return null;
   
-        // Konverter "dd/mm/yyyy" til "yyyy-mm-ddTHH:MM"
-        const [day, month, year] = dato.split("/");
-        const isoString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${tid}`;
-        return new Date(isoString);
-      };
+      const [day, month, year] = dato.split("/");
+      const isoString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${tid}`;
+      return new Date(isoString);
+    };
   
-      return getDateTime(a) - getDateTime(b);
-    });
+    const now = new Date();
   
-    rows.forEach(event => {
+    // Filtrér ud begivenheder før dags dato og tid
+    const upcomingRows = rows
+      .map(row => ({ ...row, __datetime: getDateTime(row) }))
+      .filter(row => row.__datetime && row.__datetime >= now)
+      .sort((a, b) => a.__datetime - b.__datetime);
+  
+    upcomingRows.forEach(event => {
       const dato = isLive ? event.dato : event.Dato;
       const tid = isLive ? event.tid : event.Tid;
       const titel = isLive ? event.titel : event.Titel;
