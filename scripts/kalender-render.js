@@ -36,25 +36,42 @@ window.renderCalendar = function () {
   }
 
   function renderCalendarItems(rows, isLive) {
+    // Sortér rækker efter dato og tid
+    rows.sort((a, b) => {
+      const getDateTime = row => {
+        const dato = isLive ? row.dato : row.Dato;
+        const tid = isLive ? row.tid : row.Tid || "00:00";
+  
+        if (!dato) return new Date(0); // fallback hvis dato mangler
+  
+        // Konverter "dd/mm/yyyy" til "yyyy-mm-ddTHH:MM"
+        const [day, month, year] = dato.split("/");
+        const isoString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${tid}`;
+        return new Date(isoString);
+      };
+  
+      return getDateTime(a) - getDateTime(b);
+    });
+  
     rows.forEach(event => {
       const dato = isLive ? event.dato : event.Dato;
       const tid = isLive ? event.tid : event.Tid;
       const titel = isLive ? event.titel : event.Titel;
       const sted = isLive ? event.sted : event.Sted;
       const type = (isLive ? event.type : event.Type || "").toLowerCase();
-
+  
       const formattedDate = dato || "Ukendt dato";
       const formattedTime = tid ? ` kl. ${tid}` : "";
-
+  
       let badgeHTML = "";
       if (type === "intern") {
         badgeHTML = `<span class="badge bg-secondary ms-1">Kun bestyrelsen</span>`;
       } else if (type === "alle") {
         badgeHTML = `<span class="badge bg-success ms-1">For medlemmer</span>`;
       }
-
+  
       const stedText = sted && sted !== "-" ? `📍 ${sted} – ` : "";
-
+  
       const li = document.createElement("li");
       li.className = "mb-3";
       li.innerHTML = `
@@ -63,5 +80,5 @@ window.renderCalendar = function () {
       `;
       calendarList.appendChild(li);
     });
-  }
+  }  
 };
