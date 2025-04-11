@@ -94,7 +94,7 @@ window.renderCalendar = function () {
 
       const isDeadline = (titel || "").toLowerCase().includes("deadline");
       if (isDeadline) {
-        badgeHTML = `<span class="badge ms-1" style="background-color: #fff8d6; color: #856404; border: 1px solid #ffeeba;">📌 Deadline</span>`;
+        badgeHTML = `<span class="badge ms-1" style="background-color:rgb(255, 251, 229); color:rgb(99, 76, 7); border: 1px solid #ffeeba;">📌 Deadline</span>`;
       } else if (type === "intern") {
         badgeHTML = `<span class="badge bg-secondary ms-1">Kun bestyrelsen</span>`;
       } else if (type === "alle") {
