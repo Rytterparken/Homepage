@@ -10,7 +10,17 @@ window.renderCalendar = function () {
   if (!calendarList) return;
   calendarList.innerHTML = "";
 
-  if (!USE_LIVE_DATA) {
+  if (USE_LIVE_DATA) {
+    // Brug Google Sheets
+    fetch(dataUrl)
+      .then(res => res.json())
+      .then(rows => {
+        renderCalendarItems(rows, true);
+      })
+      .catch(err => {
+        console.error("Kunne ikke hente kalenderdata fra Sheets:", err);
+      });
+  } else {
     // Brug lokal Excel-fil
     fetch(dataUrl)
       .then(res => res.arrayBuffer())
@@ -22,16 +32,6 @@ window.renderCalendar = function () {
       })
       .catch(err => {
         console.error("Fejl ved lokal kalenderfil:", err);
-      });
-  } else {
-    // Brug Google Sheets
-    fetch(dataUrl)
-      .then(res => res.json())
-      .then(rows => {
-        renderCalendarItems(rows, true);
-      })
-      .catch(err => {
-        console.error("Kunne ikke hente kalenderdata fra Sheets:", err);
       });
   }
 
