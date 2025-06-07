@@ -166,8 +166,13 @@ window.renderForslag = function () {
               <div class="accordion-body">
                 ${visFremsat}
                 ${visGenoptaget}
-                <p><strong>Forslag:</strong> ${f.beskrivelse}</p>
-                ${visStatusBeskrivelse}
+                <p><strong>Beskrivelse:</strong></p>
+                <div>${formatBeskrivelse(f.beskrivelse)}</div>
+                ${visStatusBeskrivelse ? `
+                  <br/>
+                  <p><strong>Konklusion:</strong></p>
+                  ${visStatusBeskrivelse}
+                ` : ""}
                 ${f.bilag ? `
                   <p><strong>Bilag:</strong>
                     <a href="${f.bilag.link}" target="_blank">${f.bilag.filnavn}</a>
@@ -239,4 +244,15 @@ window.renderForslag = function () {
         container.innerHTML = `<div class="text-danger">Kunne ikke hente forslag: ${error}</div>`;
       }
     });
+
+    function formatBeskrivelse(tekst) {
+      if (!tekst) return "";
+
+      return tekst
+        .replace(/\r\n/g, '\n')                 // normaliser \r\n til \n
+        .replace(/\n{3,}/g, '\n\n')             // begræns 3+ linjeskift til max 2
+        .replace(/\n/g, '<br>')                 // lav linjeskift til <br>
+        .replace(/<br>\s*•/g, '<br>&bull;')     // sørg for bullets også virker efter <br>
+        .replace(/^•/gm, '&bull;');             // bullet i starten af linje uden <br>
+    }
 };
