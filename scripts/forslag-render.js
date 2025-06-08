@@ -67,7 +67,8 @@ window.renderForslag = function () {
             "dato-fremsat": f["datofremsat"],
             "dato-genoptaget": f["datogenoptaget"],
             "titel": f["titel"],
-            "beskrivelse": f["beskrivelse"],
+            "baggrund": f["baggrund"],
+            "forslag": f["forslag"],
             "status": f["status"],
             "status-beskrivelse": f["statusbeskrivelse"],
             bilag: rawLink ? {
@@ -166,8 +167,14 @@ window.renderForslag = function () {
               <div class="accordion-body">
                 ${visFremsat}
                 ${visGenoptaget}
-                <p><strong>Beskrivelse:</strong></p>
-                <div>${formatBeskrivelse(f.beskrivelse)}</div>
+                ${f.baggrund ? `
+                  <p><strong>Baggrund:</strong></p>
+                  <div>${formatTekst(f.baggrund)}</div>
+                ` : ""}
+                ${f.forslag ? `
+                  <p class="mt-3"><strong>Forslag:</strong></p>
+                  <div>${formatTekst(f.forslag)}</div>
+                ` : ""}
                 ${visStatusBeskrivelse ? `
                   <br/>
                   <p><strong>Konklusion:</strong></p>
@@ -245,14 +252,13 @@ window.renderForslag = function () {
       }
     });
 
-    function formatBeskrivelse(tekst) {
+    function formatTekst(tekst) {
       if (!tekst) return "";
-
       return tekst
-        .replace(/\r\n/g, '\n')                 // normaliser \r\n til \n
-        .replace(/\n{3,}/g, '\n\n')             // begræns 3+ linjeskift til max 2
-        .replace(/\n/g, '<br>')                 // lav linjeskift til <br>
-        .replace(/<br>\s*•/g, '<br>&bull;')     // sørg for bullets også virker efter <br>
-        .replace(/^•/gm, '&bull;');             // bullet i starten af linje uden <br>
+        .replace(/\r\n/g, '\n')
+        .replace(/\n{3,}/g, '\n\n')
+        .replace(/\n/g, '<br>')
+        .replace(/<br>\s*•/g, '<br>&bull;')
+        .replace(/^•/gm, '&bull;');
     }
 };
