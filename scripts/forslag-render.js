@@ -48,12 +48,7 @@ window.renderForslag = function () {
 
       container.innerHTML = "";
 
-      const deadlineData = USE_LIVE_DATA
-        ? {
-            "naeste-deadline": deadlineRaw[0]["næstedeadline"],
-            "sidste-deadline": deadlineRaw[0]["sidstedeadline"]
-          }
-        : deadlineRaw;
+      const resolvedDeadline = window.resolveYearlyDeadline(window.getForslagsDeadlineValue(deadlineRaw));
 
       const forslagData = forslagRaw.map(f => {
         if (USE_LIVE_DATA) {
@@ -82,36 +77,37 @@ window.renderForslag = function () {
       });
 
       const now = new Date();
-      
-      function parseDanskDato(datoStr) {
-        const [dag, måned, år] = datoStr.split("/").map(Number);
-        return new Date(år, måned - 1, dag); // måneder i JS er 0-indekseret
-      }
-      
-      const deadlinePrevious = parseDanskDato(deadlineData["sidste-deadline"]);
-      const deadlineNext = parseDanskDato(deadlineData["naeste-deadline"]);      
-      const erMellemDeadlines = now >= deadlinePrevious && now < deadlineNext;
+      const deadlinePreviousEnd = resolvedDeadline ? resolvedDeadline.previousEnd : null;
+      const deadlineNextEnd = resolvedDeadline ? resolvedDeadline.nextEnd : null;
+      const erMellemDeadlines = !!(resolvedDeadline && now >= resolvedDeadline.previous && now < resolvedDeadline.next);
 
-      const formattedDeadline = deadlineNext.toLocaleDateString("da-DK", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      });
-
-      const deadlineTextEl = document.getElementById("forslagsDeadlineText");
-      if (deadlineTextEl) {
-        deadlineTextEl.textContent = `skal være modtaget senest ${formattedDeadline}`;
+      if (resolvedDeadline) {
+        const formattedDeadline = resolvedDeadline.next.toLocaleDateString("da-DK", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        });
+        const deadlineTextEl = document.getElementById("forslagsDeadlineText");
+        if (deadlineTextEl) {
+          deadlineTextEl.textContent = `skal være modtaget senest ${formattedDeadline}`;
+        }
       }
 
       const getDato = f => new Date(f["dato-genoptaget"] || f["dato-fremsat"] || f.dato);
 
-      const aktuelle = forslagData.filter(f => {
-        const d = getDato(f);
-        return d >= deadlinePrevious && d < deadlineNext;
-      });
+      const aktuelle = resolvedDeadline
+        ? forslagData.filter(f => {
+            const d = getDato(f);
+            return d > deadlinePreviousEnd && d <= deadlineNextEnd;
+          })
+        : forslagData;
 
-      const tidligere = forslagData.filter(f => getDato(f) < deadlinePrevious);
-      const fremtidige = forslagData.filter(f => getDato(f) >= deadlineNext);
+      const tidligere = resolvedDeadline
+        ? forslagData.filter(f => getDato(f) <= deadlinePreviousEnd)
+        : [];
+      const fremtidige = resolvedDeadline
+        ? forslagData.filter(f => getDato(f) > deadlineNextEnd)
+        : [];
 
       const lavAccordionItems = (forslag, årstal, accordionId, parentIdPrefix) => {
         const wrapper = document.createElement("div");

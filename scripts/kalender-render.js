@@ -29,28 +29,36 @@ window.renderCalendar = function () {
 
   Promise.all([fetchCalendarData, fetchDeadlineData])
     .then(([rows, deadlineRaw]) => {
-      const deadlineDatoStr = USE_LIVE_DATA
-        ? deadlineRaw[0]["næstedeadline"]
-        : deadlineRaw["naeste-deadline"];
+      const resolved = window.resolveYearlyDeadline(window.getForslagsDeadlineValue(deadlineRaw));
+      let deadlineEvent = null;
 
-      if (deadlineDatoStr) {
-        rows.push({
-          dato: deadlineDatoStr,
+      if (resolved) {
+        const next = resolved.next;
+        const dato = `${next.getDate()}/${next.getMonth() + 1}/${next.getFullYear()}`;
+        deadlineEvent = {
+          dato,
+          Dato: dato,
           tid: "23:59",
-          titel: "Deadline for forslag",
+          Tid: "23:59",
+          titel: "Rettidigt indkomne forslag",
+          Titel: "Rettidigt indkomne forslag",
           sted: "-",
+          Sted: "-",
           type: "Alle",
-        });
+          Type: "Alle",
+          __isDeadline: true,
+        };
       }
 
-      renderCalendarItems(rows, USE_LIVE_DATA);
+      renderCalendarItems(rows, USE_LIVE_DATA, deadlineEvent);
     })
     .catch(err => {
       console.error("Fejl ved hentning af kalender eller deadline:", err);
     });
 
-  function renderCalendarItems(rows, isLive) {
-  
+  function renderCalendarItems(rows, isLive, deadlineEvent) {
+    const isDeadlineTitle = titel => (titel || "").toLowerCase().includes("deadline");
+
     const getDateTime = row => {
       const dato = isLive ? row.dato : row.Dato;
       const tid = isLive ? row.tid : row.Tid || "00:00";
@@ -76,9 +84,18 @@ window.renderCalendar = function () {
     const now = new Date();
 
     const upcomingRows = rows
+      .filter(row => !isDeadlineTitle(isLive ? row.titel : row.Titel))
       .map(row => ({ ...row, __datetime: getDateTime(row) }))
-      .filter(row => row.__datetime && row.__datetime >= now)
-      .sort((a, b) => a.__datetime - b.__datetime);
+      .filter(row => row.__datetime && row.__datetime >= now);
+
+    if (deadlineEvent) {
+      upcomingRows.push({
+        ...deadlineEvent,
+        __datetime: getDateTime(deadlineEvent)
+      });
+    }
+
+    upcomingRows.sort((a, b) => a.__datetime - b.__datetime);
 
     upcomingRows.forEach(event => {
       const dato = isLive ? event.dato : event.Dato;
@@ -92,7 +109,7 @@ window.renderCalendar = function () {
 
       let badgeHTML = "";
 
-      const isDeadline = (titel || "").toLowerCase().includes("deadline");
+      const isDeadline = event.__isDeadline || (titel || "").toLowerCase().includes("deadline");
       if (isDeadline) {
         badgeHTML = `<span class="badge ms-1" style="background-color:rgb(255, 251, 229); color:rgb(99, 76, 7); border: 1px solid #ffeeba;">📌 Deadline</span>`;
       } else if (type === "intern") {
