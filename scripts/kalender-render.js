@@ -25,16 +25,24 @@ window.renderCalendar = function () {
           return XLSX.utils.sheet_to_json(sheet, { raw: false });
         });
 
-  const fetchDeadlineData = fetch(deadlineUrl).then(res => res.json());
+  const skabelonUrl = USE_LIVE_DATA
+    ? `${window.GOOGLE_SHEETS_DATA}?ark=Forslagsskabelon`
+    : "data/forslagsskabelon.json";
 
-  Promise.all([fetchCalendarData, fetchDeadlineData])
-    .then(([rows, deadlineRaw]) => {
+  const fetchDeadlineData = fetch(deadlineUrl).then(res => res.json());
+  const fetchSkabelonData = fetch(skabelonUrl).then(res => res.json()).catch(() => null);
+
+  Promise.all([fetchCalendarData, fetchDeadlineData, fetchSkabelonData])
+    .then(([rows, deadlineRaw, skabelonRaw]) => {
       const resolved = window.resolveYearlyDeadline(window.getForslagsDeadlineValue(deadlineRaw));
       let deadlineEvent = null;
 
       if (resolved) {
         const next = resolved.next;
         const dato = `${next.getDate()}/${next.getMonth() + 1}/${next.getFullYear()}`;
+        const skabelon = USE_LIVE_DATA
+          ? (Array.isArray(skabelonRaw) ? skabelonRaw[0] : skabelonRaw)
+          : skabelonRaw;
         deadlineEvent = {
           dato,
           Dato: dato,
@@ -47,6 +55,7 @@ window.renderCalendar = function () {
           type: "Alle",
           Type: "Alle",
           __isDeadline: true,
+          __skabelonLink: skabelon?.["link-docx"] || skabelon?.linkdocx || skabelon?.["link-pdf"] || skabelon?.linkpdf || "",
         };
       }
 
@@ -120,11 +129,26 @@ window.renderCalendar = function () {
 
       const stedText = sted && sted !== "-" ? `📍 ${sted} – ` : "";
 
+      let hintHTML = "";
+      if (isDeadline) {
+        const skabelonLink = event.__skabelonLink;
+        const skabelonAnchor = skabelonLink
+          ? `<a href="${skabelonLink}" target="_blank" rel="noopener">Download forslagsskabelonen</a>`
+          : "forslagsskabelonen";
+        hintHTML = `
+          <div class="calendar-hint">
+            <p class="mb-1">Forslag med et grundigt forarbejde har større chance for at blive vedtaget.</p>
+            <p class="mb-0">${skabelonAnchor}, så de nødvendige oplysninger er med fra start.</p>
+          </div>
+        `;
+      }
+
       const li = document.createElement("li");
-      li.className = "mb-3";
+      li.className = "calendar-item";
       li.innerHTML = `
         <strong>${titel || "Ukendt titel"}</strong> ${badgeHTML}<br>
         ${stedText}<em>${formattedDate}${formattedTime}</em>
+        ${hintHTML}
       `;
       calendarList.appendChild(li);
     });
