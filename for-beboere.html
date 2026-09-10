@@ -4,8 +4,8 @@
   <!-- Grid med 2 kolonner -->
   <div class="row justify-content-center mb-4">
 
-    <!-- Nyhedsbrev -->
-    <div class="col-lg-6 mb-4">
+    <!-- Nyhedsbrev (skjult visuelt, beholdt i koden) -->
+    <div class="col-lg-6 mb-4 d-none">
       <div class="card text-start h-100">
         <div class="card-header fs-5 fw-semibold">
           ✉️ Tilmeld nyhedsmail
@@ -51,25 +51,8 @@
       </div>
     </div>
 
-    <!-- Kalender -->
-    <div class="col-lg-6 mb-4">
-      <div class="card text-start h-100">
-        <div class="card-header fs-5 fw-semibold">
-          📅 Servicemeddelelser
-        </div>
-        <div class="card-body">
-          <ul id="calendar-list" class="list-unstyled mb-0">
-            <li class="text-muted">Indlæser kalender...</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <h2 class="mb-4">📋 Pligter som medlem</h2>  
-  <div class="row justify-content-center mb-5">
     <!-- Kort-boksen -->
-    <div class="col-lg-5 mb-4">
+    <div class="col-lg-6 mb-4">
       <div class="card h-100">
         <div class="card-header fs-5 fw-semibold d-flex justify-content-between align-items-center">
           <span>🗺️ Oversigtskort</span>
@@ -89,8 +72,24 @@
         </div>        
       </div>
     </div>
-  
-    <!-- Informationsboks -->
+
+    <!-- Kalender -->
+    <div class="col-lg-6 mb-4">
+      <div class="card text-start h-100">
+        <div class="card-header fs-5 fw-semibold">
+          📅 Servicemeddelelser
+        </div>
+        <div class="card-body">
+          <ul id="calendar-list" class="list-unstyled mb-0">
+            <li class="text-muted">Indlæser kalender...</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Informationsboks (skjult visuelt, beholdt i koden) -->
+  <div class="row justify-content-center mb-5 d-none">
     <div class="col-lg-7 mb-4">
       <div class="card h-100">
         <div class="card-header fs-5 fw-semibold">
