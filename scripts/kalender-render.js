@@ -55,6 +55,7 @@ window.renderCalendar = function () {
           type: "Alle",
           Type: "Alle",
           __isDeadline: true,
+          __gfYear: next.getFullYear(),
           __skabelonLink: skabelon?.["link-docx"] || skabelon?.linkdocx || skabelon?.["link-pdf"] || skabelon?.linkpdf || "",
         };
       }
@@ -129,8 +130,18 @@ window.renderCalendar = function () {
 
       const stedText = sted && sted !== "-" ? `📍 ${sted} – ` : "";
 
+      let subtextHTML = "";
       let hintHTML = "";
       if (isDeadline) {
+        const gfYear = event.__gfYear || event.__datetime?.getFullYear();
+        if (gfYear) {
+          subtextHTML = `
+            <span class="calendar-subtext">
+              Rettidigt indsendte forslag vil blive taget i betragtning til <strong>generalforsamlingen i ${gfYear}</strong>.
+            </span>
+          `;
+        }
+
         const skabelonLink = event.__skabelonLink;
         const skabelonAnchor = skabelonLink
           ? `<a href="${skabelonLink}" target="_blank" rel="noopener">Download forslagsskabelonen</a>`
@@ -148,6 +159,7 @@ window.renderCalendar = function () {
       li.innerHTML = `
         <strong>${titel || "Ukendt titel"}</strong> ${badgeHTML}<br>
         ${stedText}<em>${formattedDate}${formattedTime}</em>
+        ${subtextHTML}
         ${hintHTML}
       `;
       calendarList.appendChild(li);

@@ -257,6 +257,19 @@ main {
   border-bottom: none;
 }
 
+.calendar-subtext {
+  display: block;
+  margin-top: 0.4rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.calendar-subtext strong {
+  color: #2f3330;
+  font-weight: 600;
+}
+
 .calendar-hint {
   margin-top: 0.75rem;
   padding: 0.8rem 0.95rem;
